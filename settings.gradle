@@ -1,0 +1,2 @@
+rootProject.name = "Udhaar Manager"
+include ':app'
