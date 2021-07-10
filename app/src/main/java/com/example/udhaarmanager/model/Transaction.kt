@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.text.DateFormat
 
-@Entity(tableName = "Transactions")
+@Entity(tableName = "transactions")
 data class Transaction(
     @ColumnInfo(name = "title")
     var title: String,
