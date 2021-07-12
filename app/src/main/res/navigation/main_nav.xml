@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.udhaarmanager.view.DashboardFragment"
+        android:name="com.example.udhaarmanager.ui.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.udhaarmanager.view.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
 </navigation>
