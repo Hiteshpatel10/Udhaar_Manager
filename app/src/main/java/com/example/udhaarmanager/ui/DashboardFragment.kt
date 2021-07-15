@@ -12,6 +12,7 @@ import com.example.udhaarmanager.databinding.FragmentDashboardBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.model.Transaction
+import com.example.udhaarmanager.view.DetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +27,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     ): FragmentDashboardBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
     override fun onItemClicked(transaction: Transaction) {
-        findNavController().navigate(R.id.action_dashboardFragment_to_detailFragment)
+        val action = DashboardFragmentDirections.actionDashboardFragmentToDetailFragment(transaction)
+        findNavController().navigate(action)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

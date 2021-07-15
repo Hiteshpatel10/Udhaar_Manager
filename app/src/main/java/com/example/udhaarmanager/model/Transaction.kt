@@ -1,10 +1,13 @@
 package com.example.udhaarmanager.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 import java.text.DateFormat
 
+@Parcelize
 @Entity(tableName = "transactions")
 data class Transaction(
     @ColumnInfo(name = "title")
@@ -23,7 +26,7 @@ data class Transaction(
     var createdAt: Long =
         System.currentTimeMillis(),
 
-)  {
+) : Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0
