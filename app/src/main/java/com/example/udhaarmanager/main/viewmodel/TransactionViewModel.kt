@@ -1,13 +1,12 @@
 package com.example.udhaarmanager.main.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.udhaarmanager.model.Transaction
 import com.example.udhaarmanager.repo.TransactionRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +17,8 @@ class TransactionViewModel @Inject constructor(
 ) :
     AndroidViewModel(application) {
 
-     val _transaction: String = "ajbakb"
+    val allTransaction: LiveData<List<Transaction>> = transactionRepo.getAllTransaction.asLiveData()
+
 
     //insert transaction
     fun insert(transaction: Transaction) = viewModelScope.launch {
@@ -35,9 +35,5 @@ class TransactionViewModel @Inject constructor(
         transactionRepo.update(transaction)
     }
 
-    //get all transaction
-    fun getAllTransaction() = viewModelScope.launch {
-        transactionRepo.getAllTransaction()
-    }
 
 }

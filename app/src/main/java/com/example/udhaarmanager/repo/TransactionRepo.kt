@@ -1,8 +1,9 @@
 package com.example.udhaarmanager.repo
 
-import com.example.udhaarmanager.database.AppDatabase
+import androidx.lifecycle.LiveData
 import com.example.udhaarmanager.database.TransactionDao
 import com.example.udhaarmanager.model.Transaction
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class TransactionRepo @Inject constructor(private val database: TransactionDao) {
@@ -19,13 +20,12 @@ class TransactionRepo @Inject constructor(private val database: TransactionDao) 
         database.updateTransaction(transaction)
     }
 
-    fun getAllTransaction() {
-        database.getAllTransaction()
-    }
+    val getAllTransaction: Flow<List<Transaction>> = database.getAllTransaction()
+
 
     fun getAllTransactionType(transactionType: String) {
         if (transactionType == "Overall") {
-            getAllTransaction()
+            getAllTransaction
         } else {
             database.getAllTransactionType(transactionType)
         }

@@ -8,13 +8,13 @@ import java.text.DateFormat
 @Entity(tableName = "transactions")
 data class Transaction(
     @ColumnInfo(name = "title")
-    var title: String,
+    var title: String?,
     @ColumnInfo(name = "amount")
     var amount: Double,
     @ColumnInfo(name = "transactionType")
     var transactionType: String,
     @ColumnInfo(name = "tag")
-    var tag: String,
+    var tag: String?,
     @ColumnInfo(name = "date")
     var date: String,
     @ColumnInfo(name = "note")
