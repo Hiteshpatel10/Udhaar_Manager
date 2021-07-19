@@ -19,18 +19,14 @@ class TransactionViewModel @Inject constructor(
 
     val allTransaction: LiveData<List<Transaction>> = transactionRepo.getAllTransaction.asLiveData()
 
-    lateinit var visibility: MutableLiveData<Boolean>
-    lateinit var transactionTypeValue: MutableLiveData<String>
-
-
     //insert transaction
     fun insert(transaction: Transaction) = viewModelScope.launch {
         transactionRepo.insert(transaction)
     }
 
     //delete transaction
-    fun delete(transaction: Transaction) = viewModelScope.launch {
-        transactionRepo.delete(transaction)
+    fun delete(id: Int) = viewModelScope.launch {
+        transactionRepo.delete(id)
     }
 
     //update transaction
@@ -38,11 +34,4 @@ class TransactionViewModel @Inject constructor(
         transactionRepo.update(transaction)
     }
 
-    fun isVisible(){
-        visibility.value = true
-    }
-
-    fun notVisible(){
-        visibility.value = false
-    }
 }

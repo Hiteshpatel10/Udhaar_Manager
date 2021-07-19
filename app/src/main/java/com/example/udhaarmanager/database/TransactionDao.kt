@@ -14,8 +14,8 @@ interface TransactionDao {
     suspend fun insertTransaction(transaction: Transaction)
 
     //to delete a transaction
-    @Delete
-    suspend fun deleteTransaction(transaction: Transaction)
+    @Query("DELETE FROM transactions WHERE id = :id")
+    suspend fun deleteTransaction(id: Int)
 
     //to update an existing transaction
     @Update(onConflict = OnConflictStrategy.REPLACE)

@@ -12,8 +12,8 @@ class TransactionRepo @Inject constructor(private val database: TransactionDao) 
         database.insertTransaction(transaction)
     }
 
-    suspend fun delete(transaction: Transaction) {
-        database.deleteTransaction(transaction)
+    suspend fun delete(id: Int) {
+        database.deleteTransaction(id)
     }
 
     suspend fun update(transaction: Transaction) {

@@ -42,5 +42,7 @@
     <string name="add_button">add_button</string>
     <string name="name">Name</string>
     <string name="text_expected_return">Expected Return</string>
+    <string name="borrowed_on">Borrowed ON</string>
+    <string name="expected_return_on">Expected Return ON</string>
 
 </resources>

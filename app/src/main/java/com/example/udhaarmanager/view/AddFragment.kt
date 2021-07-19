@@ -42,8 +42,6 @@ class AddFragment :
             Constants.transactionTags
         )
 
-
-
         //Adapters
         binding.addTransactionLayout.transactionTypeAdd.setAdapter(transactionTypeAdapter)
         binding.addTransactionLayout.tagAdd.setAdapter(transactionTagAdapter)

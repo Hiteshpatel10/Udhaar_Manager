@@ -34,5 +34,11 @@
         <argument
             android:name="transactionDetail"
             app:argType="com.example.udhaarmanager.model.Transaction" />
+        <action
+            android:id="@+id/action_detailFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
 </navigation>

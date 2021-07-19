@@ -62,7 +62,7 @@
         style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_expense_when" />
+        android:text="@string/borrowed_on" />
 
     <TextView
         android:id="@+id/borrowDate_value"
@@ -75,7 +75,7 @@
         style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_expense_when" />
+        android:text="@string/expected_return_on" />
 
     <TextView
         android:id="@+id/returnDate_value"
