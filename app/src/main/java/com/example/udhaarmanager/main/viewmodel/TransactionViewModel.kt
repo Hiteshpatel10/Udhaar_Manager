@@ -19,6 +19,9 @@ class TransactionViewModel @Inject constructor(
 
     val allTransaction: LiveData<List<Transaction>> = transactionRepo.getAllTransaction.asLiveData()
 
+    lateinit var visibility: MutableLiveData<Boolean>
+    lateinit var transactionTypeValue: MutableLiveData<String>
+
 
     //insert transaction
     fun insert(transaction: Transaction) = viewModelScope.launch {
@@ -35,5 +38,11 @@ class TransactionViewModel @Inject constructor(
         transactionRepo.update(transaction)
     }
 
+    fun isVisible(){
+        visibility.value = true
+    }
 
+    fun notVisible(){
+        visibility.value = false
+    }
 }

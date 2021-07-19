@@ -9,6 +9,7 @@ import java.util.*
 fun TextInputEditText.transformIntoDatePicker(
     context: Context,
     format: String,
+    minDate: Date? = null,
     maxDate: Date? = null
 ) {
     isFocusableInTouchMode = false
@@ -34,6 +35,7 @@ fun TextInputEditText.transformIntoDatePicker(
             myCalendar.get(Calendar.DAY_OF_MONTH)
         ).run {
             maxDate?.time?.also { datePicker.maxDate = it }
+            minDate?.time?.also { datePicker.minDate = it }
             show()
         }
     }

@@ -7,80 +7,107 @@
 
     <TextView
         android:id="@+id/title_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title" />
 
     <TextView
         android:id="@+id/title_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/amount_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_expense_amount" />
 
     <TextView
         android:id="@+id/amount_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/transactionType_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_expense_transaction_type" />
 
     <TextView
         android:id="@+id/transactionType_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/tag_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_expense_tag" />
 
     <TextView
         android:id="@+id/tag_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/when_detail"
+        android:id="@+id/borrowDate_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_expense_when" />
 
     <TextView
-        android:id="@+id/when_value"
+        android:id="@+id/borrowDate_value"
+        style="@style/DetailsHeadingValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/returnDate_detail"
+        style="@style/DetailsHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_expense_when" />
+
+    <TextView
+        android:id="@+id/returnDate_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/note_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/text_expense_note" />
 
     <TextView
         android:id="@+id/note_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/createdAt_detail"
+        style="@style/DetailsHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_createdAt"/>
+        android:text="@string/text_createdAt" />
 
     <TextView
         android:id="@+id/createdAt_value"
+        style="@style/DetailsHeadingValue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

@@ -18,8 +18,10 @@ data class Transaction(
     var transactionType: String,
     @ColumnInfo(name = "tag")
     var tag: String?,
-    @ColumnInfo(name = "date")
-    var date: String,
+    @ColumnInfo(name = "borrowDate")
+    var borrowDate: String,
+    @ColumnInfo(name = "returnDate")
+    var returnDate: String,
     @ColumnInfo(name = "note")
     var note: String,
     @ColumnInfo(name = "createdAt")

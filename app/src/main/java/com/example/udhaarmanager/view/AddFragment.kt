@@ -12,8 +12,8 @@ import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentAddBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.model.Transaction
-import com.example.udhaarmanager.util.transformIntoDatePicker
 import com.example.udhaarmanager.util.Constants
+import com.example.udhaarmanager.util.transformIntoDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Double.parseDouble
 import java.util.*
@@ -42,36 +42,46 @@ class AddFragment :
             Constants.transactionTags
         )
 
-        with(binding){
 
-            //Adapters
-            addTransactionLayout.transactionTypeAdd.setAdapter(transactionTypeAdapter)
-            addTransactionLayout.tagAdd.setAdapter(transactionTagAdapter)
 
-            //Date Picker
-            addTransactionLayout.whenAdd.transformIntoDatePicker(
-                requireContext(),
-                "dd/MM/yyyy",
-                Date()
-            )
+        //Adapters
+        binding.addTransactionLayout.transactionTypeAdd.setAdapter(transactionTypeAdapter)
+        binding.addTransactionLayout.tagAdd.setAdapter(transactionTagAdapter)
 
-            submitButton.setOnClickListener {
-                viewModel.insert(getAddTransactionData())
-                findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
-            }
+        //Date Picker
+        binding.addTransactionLayout.whenAdd.transformIntoDatePicker(
+            requireContext(),
+            "dd/MM/yyyy",
+            minDate = null,
+            maxDate = Date()
+        )
+
+        binding.addTransactionLayout.returnAdd.transformIntoDatePicker(
+            requireContext(),
+            "dd/MM/yyyy",
+            minDate = Date(),
+            maxDate = null
+        )
+
+        //Insert Button On Click Listener
+        binding.submitButton.setOnClickListener {
+            viewModel.insert(getAddTransactionData())
+            findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
         }
     }
 
-    private fun getAddTransactionData(): Transaction = binding.addTransactionLayout.let{
-        val title = it.titleAdd.text.toString()
+    private fun getAddTransactionData(): Transaction = binding.addTransactionLayout.let {
+        val name = it.name.text.toString()
         val amount = parseDouble(it.amountAdd.text.toString())
         val transactionType = it.transactionTypeAdd.text.toString()
         val tag = it.tagAdd.text.toString()
-        val date = it.whenAdd.text.toString()
+        val borrowDate = it.whenAdd.text.toString()
+        val returnDate = it.returnAdd.text.toString()
         val note = it.noteAdd.text.toString()
 
-        return Transaction(title,amount,transactionType,tag,date,note)
+        return Transaction(name, amount, transactionType, tag, borrowDate, returnDate, note)
     }
+
 
     override fun getViewBinding(
         inflater: LayoutInflater,

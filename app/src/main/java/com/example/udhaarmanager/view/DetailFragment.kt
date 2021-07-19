@@ -30,7 +30,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
         detailLayout.amountValue.text =args.transactionDetail.amount.toString()
         detailLayout.transactionTypeValue.text = args.transactionDetail.transactionType
         detailLayout.tagValue.text = args.transactionDetail.tag
-        detailLayout.whenValue.text = args.transactionDetail.date
+        detailLayout.borrowDateValue.text = args.transactionDetail.borrowDate
+        detailLayout.returnDateValue.text = args.transactionDetail.returnDate
         detailLayout.noteValue.text = args.transactionDetail.note
         detailLayout.createdAtValue.text = args.transactionDetail.createdAtDateFormat
     }
