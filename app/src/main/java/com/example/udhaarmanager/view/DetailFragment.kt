@@ -11,6 +11,7 @@ import com.example.udhaarmanager.R
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDetailBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
+import com.example.udhaarmanager.ui.DashboardFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,14 +31,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
     }
 
     private fun init() = with(binding) {
-        detailLayout.titleValue.text = args.transactionDetail.title
-        detailLayout.amountValue.text = args.transactionDetail.amount.toString()
-        detailLayout.transactionTypeValue.text = args.transactionDetail.transactionType
-        detailLayout.tagValue.text = args.transactionDetail.tag
-        detailLayout.borrowDateValue.text = args.transactionDetail.borrowDate
-        detailLayout.returnDateValue.text = args.transactionDetail.returnDate
-        detailLayout.noteValue.text = args.transactionDetail.note
-        detailLayout.createdAtValue.text = args.transactionDetail.createdAtDateFormat
+        detailLayout.titleValue.text = args.transaction.title
+        detailLayout.amountValue.text = args.transaction.amount.toString()
+        detailLayout.transactionTypeValue.text = args.transaction.transactionType
+        detailLayout.tagValue.text = args.transaction.tag
+        detailLayout.borrowDateValue.text = args.transaction.borrowDate
+        detailLayout.returnDateValue.text = args.transaction.returnDate
+        detailLayout.noteValue.text = args.transaction.note
+        detailLayout.createdAtValue.text = args.transaction.createdAtDateFormat
     }
 
     private fun bottomNavOnClickListeners() {
@@ -48,7 +49,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
         binding.bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.deleteButton -> {
-                    viewModel.delete(args.transactionDetail.id)
+                    viewModel.delete(args.transaction.id)
                     findNavController().navigate(R.id.action_detailFragment_to_dashboardFragment)
                     true
                 }
@@ -58,6 +59,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                 }
 
                 R.id.updateButton -> {
+                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(args.transaction)
+                    findNavController().navigate(action)
                     true
                 }
                 else -> false
