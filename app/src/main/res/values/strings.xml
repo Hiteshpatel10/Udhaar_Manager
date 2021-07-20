@@ -4,8 +4,8 @@
     <string name="title">TITLE</string>
     <string name="text_save_transaction">Save Transaction</string>
     <string name="text_ui_mode">UI Mode</string>
-    <string name="text_total_income">Total Income</string>
-    <string name="text_total_expense">Total Expense</string>
+    <string name="text_total_income">You Will Give</string>
+    <string name="text_total_expense">You Will Receive</string>
     <string name="text_total_balance">Total Balance</string>
     <string name="text_recent_transactions">Recent Transactions</string>
     <string name="text_view_all">View all</string>

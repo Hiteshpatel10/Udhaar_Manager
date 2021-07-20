@@ -30,6 +30,7 @@ class AddFragment :
         super.onViewCreated(view, savedInstanceState)
         loadData()
         initViews()
+        bottomNavOnClickListener()
     }
 
     private fun initViews() {
@@ -64,15 +65,6 @@ class AddFragment :
             minDate = Date(),
             maxDate = null
         )
-
-        //Insert Button On Click Listener
-        binding.submitButton.setOnClickListener {
-            viewModel.insert(getAddTransactionData()).also {
-                viewModel.delete(args.transaction.id).also {
-                    findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
-                }
-            }
-        }
     }
 
     private fun getAddTransactionData(): Transaction = binding.addTransactionLayout.let {
@@ -101,7 +93,26 @@ class AddFragment :
         } catch (e: Exception) {
             Log.e("FragmentAdd", "${e.message}")
         }
+    }
 
+    private fun bottomNavOnClickListener() {
+        binding.bottomAppBar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.bottomAppBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.saveButtonMenu -> {
+                    viewModel.insert(getAddTransactionData()).also {
+                        viewModel.delete(args.transaction.id).also {
+                            findNavController().popBackStack()
+                        }
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
 

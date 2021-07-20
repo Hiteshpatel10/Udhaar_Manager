@@ -1,6 +1,7 @@
 package com.example.udhaarmanager.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         viewModel.allTransaction.observe(requireActivity(), {
             it?.let {
                 adapter.allTransaction = it
+                balanceViewInit(it)
             }
         })
     }
@@ -58,6 +60,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
                 )
                 findNavController().navigate(action)
             }
+        }
+    }
+
+    private fun balanceViewInit(transactions: List<Transaction>){
+        var udhaarGiven = 0.0
+        var udhaarTaken = 0.0
+        transactions.forEach {
+            if(it.transactionType == "Udhaar_taken"){
+                udhaarGiven += it.amount
+            }else{
+                udhaarTaken += it.amount
+            }
+            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
+            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
         }
     }
 
