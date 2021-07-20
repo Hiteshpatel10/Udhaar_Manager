@@ -68,7 +68,7 @@ class AddFragment :
         //Insert Button On Click Listener
         binding.submitButton.setOnClickListener {
             viewModel.insert(getAddTransactionData()).also {
-                viewModel.delete(args.transaction!!.id).also {
+                viewModel.delete(args.transaction.id).also {
                     findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
                 }
             }
@@ -91,13 +91,13 @@ class AddFragment :
         val bind = binding.addTransactionLayout
         val arg = args.transaction
         try {
-            bind.name.setText(arg?.title)
-            bind.amountAdd.setText(args.transaction?.amount.toString())
-            bind.transactionTypeAdd.setText(arg?.transactionType)
-            bind.tagAdd.setText(arg?.tag)
-            bind.whenAdd.setText(arg?.borrowDate)
-            bind.returnAdd.setText(arg?.returnDate)
-            bind.noteAdd.setText(arg?.returnDate)
+            bind.name.setText(arg.title)
+            bind.amountAdd.setText(args.transaction.amount.toString())
+            bind.transactionTypeAdd.setText(arg.transactionType)
+            bind.tagAdd.setText(arg.tag)
+            bind.whenAdd.setText(arg.borrowDate)
+            bind.returnAdd.setText(arg.returnDate)
+            bind.noteAdd.setText(arg.returnDate)
         } catch (e: Exception) {
             Log.e("FragmentAdd", "${e.message}")
         }
