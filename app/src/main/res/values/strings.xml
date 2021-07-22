@@ -8,6 +8,7 @@
     <string name="text_total_expense">You Will Receive</string>
     <string name="text_total_balance">Total Balance</string>
     <string name="text_recent_transactions">Recent Transactions</string>
+    <string name="text_all_transactions">All Transactions</string>
     <string name="text_view_all">View all</string>
     <string name="text_expense_when">When</string>
     <string name="text_expense_amount">Amount</string>
@@ -44,5 +45,12 @@
     <string name="text_expected_return">Expected Return</string>
     <string name="borrowed_on">Borrowed ON</string>
     <string name="expected_return_on">Expected Return ON</string>
+
+    <!-- login -->
+    <string name="google_login">Google</string>
+    <string name="facebook_login">Facebook</string>
+    <string name="twitter_login">Twitter</string>
+    <string name="email_login">Email</string>
+    <string name="phone_login">Phone</string>
 
 </resources>

@@ -59,7 +59,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                 }
 
                 R.id.updateButton -> {
-                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(args.transaction)
+                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(args.transaction,true)
                     findNavController().navigate(action)
                     true
                 }

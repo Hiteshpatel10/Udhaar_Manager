@@ -28,6 +28,9 @@
         <argument
             android:name="transaction"
             app:argType="com.example.udhaarmanager.model.Transaction" />
+        <argument
+            android:name="loadDataExecute"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"

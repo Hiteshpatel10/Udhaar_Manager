@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DashboardFragment">
+    tools:context=".ui.DashboardFragment"
+    android:padding="@dimen/dimen_4">
 
     <LinearLayout
         android:id="@+id/dashboard_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
@@ -22,10 +23,11 @@
             android:id="@+id/title_recent_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_16"
-            android:layout_marginTop="@dimen/dimen_16"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_8"
             android:fontFamily="@font/open_sans_semibold"
-            android:text="@string/text_recent_transactions"
+            android:text="@string/text_all_transactions"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/income_card_view" />

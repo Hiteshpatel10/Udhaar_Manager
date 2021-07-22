@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -28,7 +29,9 @@ class AddFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadData()
+        if (args.loadDataExecute) {
+            loadData()
+        }
         initViews()
         bottomNavOnClickListener()
     }
@@ -103,10 +106,42 @@ class AddFragment :
         binding.bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.saveButtonMenu -> {
-                    viewModel.insert(getAddTransactionData()).also {
-                        viewModel.delete(args.transaction.id).also {
-                            findNavController().popBackStack()
+                    val transaction: Transaction = getAddTransactionData()
+                    when {
+                        transaction.title.isNullOrEmpty() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
                         }
+
+                        transaction.amount.isNaN() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                        }
+
+                        transaction.transactionType.isEmpty() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                        }
+
+                        transaction.tag.isNullOrEmpty() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                        }
+
+                        transaction.borrowDate.isEmpty() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                        }
+
+                        transaction.returnDate.isEmpty() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                        }
+
+                        transaction.note.isEmpty() -> {
+                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                        }
+
+                        else -> {
+                            viewModel.insert(transaction).also {
+                                findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
+                            }
+                        }
+
                     }
                     true
                 }
@@ -114,7 +149,6 @@ class AddFragment :
             }
         }
     }
-
 
     override fun getViewBinding(
         inflater: LayoutInflater,

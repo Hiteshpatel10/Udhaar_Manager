@@ -1,24 +1,17 @@
 package com.example.udhaarmanager.ui
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDashboardBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.model.Transaction
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionViewModel>(),
@@ -62,7 +55,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         with(binding) {
             addTransaction.setOnClickListener {
                 val action = DashboardFragmentDirections.actionDashboardFragmentToAddFragment(
-                    Transaction(null, 0.0, "", "", "", "", "")
+                    Transaction(null, 0.0, "", "", "", "", ""),
+                    false
                 )
                 findNavController().navigate(action)
             }
