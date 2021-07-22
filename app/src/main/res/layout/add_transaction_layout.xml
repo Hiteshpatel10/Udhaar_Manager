@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_16"
-        android:hint="@string/text_title">
+        android:hint="@string/name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/title_add"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -90,6 +90,26 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/when_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/return_view_add"
+        style="@style/PrimaryEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_16"
+        android:clickable="true"
+        android:focusable="true"
+        android:hint="@string/text_expected_return"
+        app:endIconDrawable="@drawable/ic_baseline_calendar_today_24"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/return_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="DetailsHeading" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="android:layout_marginTop">@dimen/dimen_24</item>
+        <item name="android:layout_marginStart">@dimen/dimen_16</item>
+        <item name="fontFamily">@font/open_sans_bold</item>
+    </style>
+
+    <style name="DetailsHeadingValue" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="android:layout_marginTop">@dimen/dimen_8</item>
+        <item name="android:layout_marginStart">@dimen/dimen_16</item>
+        <item name="fontFamily">@font/open_sans_regular</item>
+    </style>
+
+</resources>

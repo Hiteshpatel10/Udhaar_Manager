@@ -19,21 +19,19 @@ class TransactionViewModel @Inject constructor(
 
     val allTransaction: LiveData<List<Transaction>> = transactionRepo.getAllTransaction.asLiveData()
 
-
     //insert transaction
     fun insert(transaction: Transaction) = viewModelScope.launch {
         transactionRepo.insert(transaction)
     }
 
     //delete transaction
-    fun delete(transaction: Transaction) = viewModelScope.launch {
-        transactionRepo.delete(transaction)
+    fun delete(id: Int) = viewModelScope.launch {
+        transactionRepo.delete(id)
     }
 
     //update transaction
     fun update(transaction: Transaction) = viewModelScope.launch {
         transactionRepo.update(transaction)
     }
-
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/updateButton"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:title="@string/text_edit"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/deleteButton"
+        android:icon="@drawable/ic_baseline_delete_forever_24"
+        android:title="@string/success_transaction_delete"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/shareButton"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="@string/text_share"
+        app:showAsAction="ifRoom" />
+</menu>

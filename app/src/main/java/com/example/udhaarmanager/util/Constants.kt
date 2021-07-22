@@ -2,7 +2,10 @@ package com.example.udhaarmanager.util
 
 object Constants {
 
-    val transactionType = listOf("Income","Expense")
+    val transactionType = listOf(
+        "Udhaar_taken",
+        "Udhaar_given"
+    )
 
     val transactionTags = listOf(
         "Housing",

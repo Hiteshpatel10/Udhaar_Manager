@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "169494162665",
+    "project_id": "udhaar-manager-10",
+    "storage_bucket": "udhaar-manager-10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169494162665:android:25e76e2a4a8737b8ee9478",
+        "android_client_info": {
+          "package_name": "com.example.udhaarmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169494162665-o7okrv6b47qcqgttb922nll028kfeg9l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.udhaarmanager",
+            "certificate_hash": "996f8df205d5a564873a6cc7b6432525f665dfb9"
+          }
+        },
+        {
+          "client_id": "169494162665-uctpc8t5fa8l6t9rh9ib025tmckc61n9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALEOUx5R_fqcmik9kD2D9tT7JO6mUKMsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169494162665-uctpc8t5fa8l6t9rh9ib025tmckc61n9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

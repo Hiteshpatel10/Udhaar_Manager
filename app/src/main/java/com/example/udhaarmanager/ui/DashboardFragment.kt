@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.udhaarmanager.R
+import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDashboardBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
-import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.model.Transaction
-import com.example.udhaarmanager.view.DetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +25,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     ): FragmentDashboardBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
     override fun onItemClicked(transaction: Transaction) {
-        val action = DashboardFragmentDirections.actionDashboardFragmentToDetailFragment(transaction)
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToDetailFragment(transaction)
         findNavController().navigate(action)
     }
 
@@ -47,6 +46,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         viewModel.allTransaction.observe(requireActivity(), {
             it?.let {
                 adapter.allTransaction = it
+                balanceViewInit(it)
             }
         })
     }
@@ -54,9 +54,26 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     private fun button() {
         with(binding) {
             addTransaction.setOnClickListener {
-                findNavController().navigate(R.id.action_dashboardFragment_to_addFragment)
+                val action = DashboardFragmentDirections.actionDashboardFragmentToAddFragment(
+                    Transaction(null, 0.0, "", "", "", "", ""),
+                    false
+                )
+                findNavController().navigate(action)
             }
         }
     }
 
+    private fun balanceViewInit(transactions: List<Transaction>) {
+        var udhaarGiven = 0.0
+        var udhaarTaken = 0.0
+        transactions.forEach {
+            if (it.transactionType == "Udhaar_taken") {
+                udhaarGiven += it.amount
+            } else {
+                udhaarTaken += it.amount
+            }
+            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
+            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
+        }
+    }
 }

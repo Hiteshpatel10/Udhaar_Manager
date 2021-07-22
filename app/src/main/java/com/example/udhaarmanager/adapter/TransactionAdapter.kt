@@ -3,6 +3,7 @@ package com.example.udhaarmanager.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.RecyclerviewLayoutBinding
 import com.example.udhaarmanager.model.Transaction
 
@@ -21,7 +22,7 @@ class TransactionAdapter(private val listener: ITransactionListener) :
 
         val viewHolder = TransactionViewHolder(binding)
 
-        binding.cardView.setOnClickListener{
+        binding.transactionCardView.setOnClickListener {
             listener.onItemClicked(allTransaction[viewHolder.adapterPosition])
         }
 
@@ -30,15 +31,26 @@ class TransactionAdapter(private val listener: ITransactionListener) :
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val item = allTransaction[position]
-        holder.binding.text1.text = item.tag
+        holder.bind(item)
     }
 
     override fun getItemCount(): Int {
         return allTransaction.size
     }
 
-    inner class TransactionViewHolder(val binding: RecyclerviewLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class TransactionViewHolder(private val binding: RecyclerviewLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Transaction) {
+            if (item.transactionType == "Udhaar_taken") {
+                binding.transactionIconView.setImageResource(R.drawable.income_symbol)
+            } else {
+                binding.transactionIconView.setImageResource(R.drawable.expense_symbol)
+            }
+            binding.transactionAmount.text = item.amount.toString()
+            binding.transactionCategory.text = item.tag
+            binding.transactionName.text = item.title
+        }
+    }
 
     interface ITransactionListener {
         fun onItemClicked(transaction: Transaction)

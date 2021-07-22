@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_addFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <argument
+            android:name="transaction"
+            app:argType="com.example.udhaarmanager.model.Transaction" />
+        <argument
+            android:name="loadDataExecute"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -32,7 +38,13 @@
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
-            android:name="transactionDetail"
+            android:name="transaction"
             app:argType="com.example.udhaarmanager.model.Transaction" />
+        <action
+            android:id="@+id/action_detailFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
 </navigation>
