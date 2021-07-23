@@ -1,6 +1,7 @@
 package com.example.udhaarmanager.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,17 @@ import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDetailBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.ui.DashboardFragmentDirections
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>() {
     override val viewModel: TransactionViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
+    private val db = Firebase.firestore
+    private val auth = FirebaseAuth.getInstance()
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -50,6 +56,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
             when (item.itemId) {
                 R.id.deleteButton -> {
                     viewModel.delete(args.transaction.id)
+                    db.collection(auth.currentUser?.email.toString())
+                        .document(args.transaction.createdAt.toString())
+                        .delete()
+
                     findNavController().navigate(R.id.action_detailFragment_to_dashboardFragment)
                     true
                 }
@@ -59,7 +69,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                 }
 
                 R.id.updateButton -> {
-                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(args.transaction,true)
+                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(
+                        args.transaction,
+                        true
+                    )
                     findNavController().navigate(action)
                     true
                 }

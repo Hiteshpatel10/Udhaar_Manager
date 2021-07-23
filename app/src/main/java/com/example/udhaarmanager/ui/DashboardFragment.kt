@@ -65,7 +65,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         with(binding) {
             addTransaction.setOnClickListener {
                 val action = DashboardFragmentDirections.actionDashboardFragmentToAddFragment(
-                    Transaction(null, 0.0, "", "", "", "", ""),
+                    Transaction(null, 0.0, "", "", "", "",""),
                     false
                 )
                 findNavController().navigate(action)

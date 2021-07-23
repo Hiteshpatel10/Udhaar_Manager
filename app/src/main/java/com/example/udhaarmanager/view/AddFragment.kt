@@ -17,6 +17,10 @@ import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.model.Transaction
 import com.example.udhaarmanager.util.Constants
 import com.example.udhaarmanager.util.transformIntoDatePicker
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Double.parseDouble
 import java.util.*
@@ -26,6 +30,8 @@ class AddFragment :
     BaseFragment<FragmentAddBinding, TransactionViewModel>() {
     override val viewModel: TransactionViewModel by viewModels()
     private val args: AddFragmentArgs by navArgs()
+    private val db = Firebase.firestore
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,7 +84,6 @@ class AddFragment :
         val borrowDate = it.whenAdd.text.toString()
         val returnDate = it.returnAdd.text.toString()
         val note = it.noteAdd.text.toString()
-
         return Transaction(name, amount, transactionType, tag, borrowDate, returnDate, note)
     }
 
@@ -107,42 +112,18 @@ class AddFragment :
             when (item.itemId) {
                 R.id.saveButtonMenu -> {
                     val transaction: Transaction = getAddTransactionData()
-                    when {
-                        transaction.title.isNullOrEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.amount.isNaN() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.transactionType.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.tag.isNullOrEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.borrowDate.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.returnDate.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.note.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        else -> {
-                            viewModel.insert(transaction).also {
-                                findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
-                            }
-                        }
-
+                    viewModel.insert(transaction).also {
+                        findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
                     }
+                    db.collection(auth.currentUser?.email.toString())
+                        .document(transaction.createdAt.toString())
+                        .set(transaction)
+                        .addOnCompleteListener {
+                            Log.i("notes", "success")
+                        }
+                        .addOnFailureListener {
+                            Log.i("notes", "${it.message}")
+                        }
                     true
                 }
                 else -> false

@@ -1,6 +1,5 @@
 package com.example.udhaarmanager.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.udhaarmanager.model.Transaction
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +14,7 @@ interface TransactionDao {
 
     //to delete a transaction
     @Query("DELETE FROM transactions WHERE id = :id")
-    suspend fun deleteTransaction(id: Int)
+    suspend fun deleteTransaction(id: Long)
 
     //to update an existing transaction
     @Update(onConflict = OnConflictStrategy.REPLACE)

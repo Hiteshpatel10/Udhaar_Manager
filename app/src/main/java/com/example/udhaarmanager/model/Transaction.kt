@@ -28,10 +28,12 @@ data class Transaction(
     var createdAt: Long =
         System.currentTimeMillis(),
 
+
 ) : Parcelable {
-    @PrimaryKey(autoGenerate = true)
+
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
 
     val createdAtDateFormat: String
     get() = DateFormat.getDateTimeInstance()

@@ -1,6 +1,5 @@
 package com.example.udhaarmanager.repo
 
-import androidx.lifecycle.LiveData
 import com.example.udhaarmanager.database.TransactionDao
 import com.example.udhaarmanager.model.Transaction
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +11,7 @@ class TransactionRepo @Inject constructor(private val database: TransactionDao) 
         database.insertTransaction(transaction)
     }
 
-    suspend fun delete(id: Int) {
+    suspend fun delete(id: Long) {
         database.deleteTransaction(id)
     }
 

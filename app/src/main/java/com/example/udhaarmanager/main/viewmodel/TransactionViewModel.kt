@@ -25,7 +25,7 @@ class TransactionViewModel @Inject constructor(
     }
 
     //delete transaction
-    fun delete(id: Int) = viewModelScope.launch {
+    fun delete(id: Long) = viewModelScope.launch {
         transactionRepo.delete(id)
     }
 
