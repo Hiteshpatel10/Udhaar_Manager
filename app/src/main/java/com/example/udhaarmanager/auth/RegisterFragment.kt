@@ -1,5 +1,6 @@
 package com.example.udhaarmanager.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.FragmentRegisterBinding
+import com.example.udhaarmanager.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -64,6 +66,11 @@ class RegisterFragment : Fragment() {
                                 "successful $firebaseUser",
                                 Toast.LENGTH_LONG
                             ).show()
+
+                            val intent = Intent(requireContext(), MainActivity::class.java)
+                            startActivity(intent).also {
+                                activity?.finish()
+                            }
                         }
                     }
                     .addOnFailureListener {
