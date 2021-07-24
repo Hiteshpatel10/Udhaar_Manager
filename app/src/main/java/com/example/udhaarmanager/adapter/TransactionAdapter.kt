@@ -7,14 +7,19 @@ import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.RecyclerviewLayoutBinding
 import com.example.udhaarmanager.model.TModel
 
-class TransactionAdapter(private var allTransaction: ArrayList<TModel>) :
+class TransactionAdapter(private var allTransaction: ArrayList<TModel>, private val listener: ITransactionListener) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val binding =
             RecyclerviewLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return TransactionViewHolder(binding)
+        val viewHolder = TransactionViewHolder(binding)
+
+        binding.transactionCardView.setOnClickListener {
+            listener.onItemClicked(allTransaction[viewHolder.adapterPosition])
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
@@ -38,5 +43,9 @@ class TransactionAdapter(private var allTransaction: ArrayList<TModel>) :
             binding.transactionCategory.text = item.tag
             binding.transactionName.text = item.title
         }
+    }
+
+    interface ITransactionListener {
+        fun onItemClicked(tModel: TModel)
     }
 }

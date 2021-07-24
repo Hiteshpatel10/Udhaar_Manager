@@ -24,7 +24,8 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
+class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionViewModel>(),
+    TransactionAdapter.ITransactionListener {
     override val viewModel: TransactionViewModel by viewModels()
     private lateinit var adapter: TransactionAdapter
     private lateinit var auth: FirebaseAuth
@@ -39,6 +40,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
+        adapter = TransactionAdapter(allTransaction, this)
+        binding.recyclerView.adapter = adapter
+        balanceViewInit(allTransaction)
     }
 
     private fun eventChangeListener() {
@@ -57,13 +61,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
                             try {
                                 allTransaction.add(dc.document.toObject(TModel::class.java))
                             } catch (e: Exception) {
-                                Log.i("notes","error ${e.message}")
+                                Log.i("notes", "error ${e.message}")
                             }
                         }
                     }
-                    adapter = TransactionAdapter(allTransaction)
-                    binding.recyclerView.adapter = adapter
-                    balanceViewInit(allTransaction)
                     Log.i("notes", "$allTransaction")
                     adapter.notifyDataSetChanged()
                 }
@@ -76,6 +77,10 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         button()
         bottomNavOnClickListener()
         eventChangeListener()
+    }
+
+    override fun onItemClicked(tModel: TModel) {
+
     }
 
     private fun button() {
