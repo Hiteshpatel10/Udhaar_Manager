@@ -5,16 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.RecyclerviewLayoutBinding
-import com.example.udhaarmanager.model.Transaction
+import com.example.udhaarmanager.model.FireStoreModel
 
-class TransactionAdapter(private val listener: ITransactionListener) :
+class TransactionAdapter(
+    private val listener: ITransactionListener,
+    private val allTransaction: ArrayList<FireStoreModel>
+) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
-
-    var allTransaction = listOf<Transaction>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val binding =
@@ -40,7 +37,7 @@ class TransactionAdapter(private val listener: ITransactionListener) :
 
     inner class TransactionViewHolder(private val binding: RecyclerviewLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Transaction) {
+        fun bind(item: FireStoreModel) {
             if (item.transactionType == "Udhaar_taken") {
                 binding.transactionIconView.setImageResource(R.drawable.income_symbol)
             } else {
@@ -53,7 +50,7 @@ class TransactionAdapter(private val listener: ITransactionListener) :
     }
 
     interface ITransactionListener {
-        fun onItemClicked(transaction: Transaction)
+        fun onItemClicked(transaction: FireStoreModel)
     }
 
 }

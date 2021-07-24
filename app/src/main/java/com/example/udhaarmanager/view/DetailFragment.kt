@@ -11,13 +11,19 @@ import com.example.udhaarmanager.R
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDetailBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
-import com.example.udhaarmanager.ui.DashboardFragmentDirections
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>() {
     override val viewModel: TransactionViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
+    private var auth: FirebaseAuth = Firebase.auth
+    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val collectionRef = auth.currentUser?.email.toString()
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -49,7 +55,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
         binding.bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.deleteButton -> {
-                    viewModel.delete(args.transaction.id)
+                    db.collection(collectionRef).document(args.transaction.createdAt.toString())
+                        .delete()
                     findNavController().navigate(R.id.action_detailFragment_to_dashboardFragment)
                     true
                 }

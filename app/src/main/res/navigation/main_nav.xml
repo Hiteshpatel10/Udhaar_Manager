@@ -27,7 +27,7 @@
             app:destination="@id/dashboardFragment" />
         <argument
             android:name="transaction"
-            app:argType="com.example.udhaarmanager.model.Transaction" />
+            app:argType="com.example.udhaarmanager.model.FireStoreModel" />
         <argument
             android:name="loadDataExecute"
             app:argType="boolean" />
@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="transaction"
-            app:argType="com.example.udhaarmanager.model.Transaction" />
+            app:argType="com.example.udhaarmanager.model.FireStoreModel" />
         <action
             android:id="@+id/action_detailFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
