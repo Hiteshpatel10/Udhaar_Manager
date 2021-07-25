@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,6 +16,10 @@ import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.model.Transaction
 import com.example.udhaarmanager.util.Constants
 import com.example.udhaarmanager.util.transformIntoDatePicker
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Double.parseDouble
 import java.util.*
@@ -26,6 +29,9 @@ class AddFragment :
     BaseFragment<FragmentAddBinding, TransactionViewModel>() {
     override val viewModel: TransactionViewModel by viewModels()
     private val args: AddFragmentArgs by navArgs()
+    private var auth: FirebaseAuth = Firebase.auth
+    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val collectionRef = auth.currentUser?.email.toString()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -107,42 +113,13 @@ class AddFragment :
             when (item.itemId) {
                 R.id.saveButtonMenu -> {
                     val transaction: Transaction = getAddTransactionData()
-                    when {
-                        transaction.title.isNullOrEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
 
-                        transaction.amount.isNaN() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
+                    val createdAt: Long =
+                        System.currentTimeMillis()
+                    db.collection(collectionRef).document(createdAt.toString()).set(transaction)
+                        .also {
+                            findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
                         }
-
-                        transaction.transactionType.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.tag.isNullOrEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.borrowDate.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.returnDate.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        transaction.note.isEmpty() -> {
-                            Toast.makeText(requireContext(), "fh", Toast.LENGTH_LONG).show()
-                        }
-
-                        else -> {
-                            viewModel.insert(transaction).also {
-                                findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
-                            }
-                        }
-
-                    }
                     true
                 }
                 else -> false
