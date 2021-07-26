@@ -1,4 +1,4 @@
-package com.example.udhaarmanager.ui
+package com.example.udhaarmanager.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -38,7 +38,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
 
     override fun onItemClicked(transaction: FireStoreModel) {
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailFragment(transaction)
+            DashboardFragmentDirections.actionDashboardFragmentToDetailFragment(
+                transaction
+            )
         findNavController().navigate(action)
     }
 
@@ -82,10 +84,11 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     private fun button() {
         with(binding) {
             addTransaction.setOnClickListener {
-                val action = DashboardFragmentDirections.actionDashboardFragmentToAddFragment(
-                    FireStoreModel(null, null, null, null, null, null, null, null, null, null),
-                    false
-                )
+                val action =
+                    DashboardFragmentDirections.actionDashboardFragmentToAddFragment(
+                        FireStoreModel(null, null, null, null, null, null, null, null, null, null),
+                        false
+                    )
                 findNavController().navigate(action)
             }
         }

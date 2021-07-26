@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.udhaarmanager.ui.DashboardFragment"
+        android:name="com.example.udhaarmanager.view.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_addPersonFragment"
+            app:destination="@id/addPersonFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -51,5 +54,9 @@
         android:id="@+id/addPersonFragment"
         android:name="com.example.udhaarmanager.view.AddPersonFragment"
         android:label="fragment_add_person"
-        tools:layout="@layout/fragment_add_person" />
+        tools:layout="@layout/fragment_add_person" >
+        <action
+            android:id="@+id/action_addPersonFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>
