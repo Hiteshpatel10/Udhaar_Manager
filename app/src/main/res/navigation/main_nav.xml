@@ -3,22 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/addPersonFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.udhaarmanager.view.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        tools:layout="@layout/fragment_dashboard"
+        app:startDestination="@id/action_dashboardFragment_to_addPersonFragment">
         <action
             android:id="@+id/action_dashboardFragment_to_addFragment"
             app:destination="@id/addFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-        <action
             android:id="@+id/action_dashboardFragment_to_addPersonFragment"
             app:destination="@id/addPersonFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_personTransactFragment"
+            app:destination="@id/personTransactFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -34,6 +35,9 @@
         <argument
             android:name="loadDataExecute"
             app:argType="boolean" />
+        <argument
+            android:name="transactor"
+            app:argType="com.example.udhaarmanager.model.ContactModel" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -43,9 +47,6 @@
         <argument
             android:name="transaction"
             app:argType="com.example.udhaarmanager.model.FireStoreModel" />
-        <action
-            android:id="@+id/action_detailFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
         <action
             android:id="@+id/action_detailFragment_to_addFragment"
             app:destination="@id/addFragment" />
@@ -58,5 +59,17 @@
         <action
             android:id="@+id/action_addPersonFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personTransactFragment"
+        android:name="com.example.udhaarmanager.view.PersonTransactFragment"
+        android:label="fragment_person_transact"
+        tools:layout="@layout/fragment_person_transact" >
+        <argument
+            android:name="transactor"
+            app:argType="com.example.udhaarmanager.model.ContactModel" />
+        <action
+            android:id="@+id/action_personTransactFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
 </navigation>

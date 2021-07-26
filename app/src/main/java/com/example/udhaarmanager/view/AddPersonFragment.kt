@@ -44,8 +44,10 @@ class AddPersonFragment : Fragment(), ContactAdapter.IContactAdapter {
     }
 
     override fun onItemClicked(contact: ContactModel) {
-        db.collection(collectionRef).document(contact.number).set(contact).also {
-            findNavController().navigate(R.id.action_addPersonFragment_to_dashboardFragment)
+        contact.number?.let {
+            db.collection(collectionRef).document(it).set(contact).also {
+                findNavController().navigate(R.id.action_addPersonFragment_to_dashboardFragment)
+            }
         }
     }
 

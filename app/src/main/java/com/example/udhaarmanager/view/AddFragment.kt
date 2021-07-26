@@ -116,7 +116,9 @@ class AddFragment :
 
                     val createdAt: Long =
                         System.currentTimeMillis()
-                    db.collection(collectionRef).document(createdAt.toString()).set(transaction)
+                    db.collection(collectionRef).document(args.transactor.number.toString())
+                        .collection(args.transactor.name.toString()).document(createdAt.toString())
+                        .set(transaction)
                         .also {
                             findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
                         }

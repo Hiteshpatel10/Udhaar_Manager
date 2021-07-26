@@ -11,6 +11,7 @@ import com.example.udhaarmanager.R
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDetailBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
+import com.example.udhaarmanager.model.ContactModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -49,7 +50,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
 
     private fun bottomNavOnClickListeners() {
         binding.bottomAppBar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_detailFragment_to_dashboardFragment)
+
         }
 
         binding.bottomAppBar.setOnMenuItemClickListener { item ->
@@ -57,7 +58,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                 R.id.deleteButton -> {
                     db.collection(collectionRef).document(args.transaction.createdAt.toString())
                         .delete()
-                    findNavController().navigate(R.id.action_detailFragment_to_dashboardFragment)
+
                     true
                 }
 
@@ -66,7 +67,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                 }
 
                 R.id.updateButton -> {
-                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(args.transaction,true)
+                    val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(
+                        args.transaction,
+                        true,
+                        ContactModel(null, "")
+                    )
                     findNavController().navigate(action)
                     true
                 }

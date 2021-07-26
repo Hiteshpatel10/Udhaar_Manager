@@ -10,11 +10,12 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.udhaarmanager.R
-import com.example.udhaarmanager.adapter.TransactionAdapter
+import com.example.udhaarmanager.adapter.DashboardAdapter
 import com.example.udhaarmanager.auth.AuthActivity
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDashboardBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
+import com.example.udhaarmanager.model.ContactModel
 import com.example.udhaarmanager.model.FireStoreModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -24,35 +25,42 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionViewModel>(),
-    TransactionAdapter.ITransactionListener {
+    DashboardAdapter.IDashboardAdapter {
     override val viewModel: TransactionViewModel by viewModels()
-    private lateinit var adapter: TransactionAdapter
+    private lateinit var adapter: DashboardAdapter
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-    private lateinit var allTransaction: ArrayList<FireStoreModel>
+    private lateinit var allTransaction: ArrayList<ContactModel>
 
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentDashboardBinding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-    override fun onItemClicked(transaction: FireStoreModel) {
-        val action =
-            DashboardFragmentDirections.actionDashboardFragmentToDetailFragment(
-                transaction
-            )
-        findNavController().navigate(action)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
-        button()
+        addContact()
         adapterRecyclerView(this)
         bottomNavOnClickListener()
     }
 
-    private fun adapterRecyclerView(listener: TransactionAdapter.ITransactionListener) {
+    override fun onItemClicked(transactor: ContactModel) {
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToPersonTransactFragment(transactor)
+        findNavController().navigate(action)
+
+    }
+
+    private fun addContact() {
+        binding.addTransaction.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_addPersonFragment)
+        }
+    }
+
+
+    private fun adapterRecyclerView(listener: DashboardAdapter.IDashboardAdapter) {
         db = FirebaseFirestore.getInstance()
         allTransaction = arrayListOf()
         db.collection(auth.currentUser?.email.toString())
@@ -66,33 +74,20 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
                         if (dc.type == DocumentChange.Type.ADDED) {
                             Log.i("notes", "this")
                             try {
-                                allTransaction.add(dc.document.toObject(FireStoreModel::class.java))
+                                allTransaction.add(dc.document.toObject(ContactModel::class.java))
                             } catch (e: Exception) {
                                 Log.i("notes", "error ${e.message}")
                             }
                         }
                     }
                     Log.i("notes", "$allTransaction")
-                    adapter = TransactionAdapter(listener, allTransaction)
+                    adapter = DashboardAdapter(allTransaction, listener)
                     binding.recyclerView.adapter = adapter
-                    balanceViewInit(allTransaction)
                     adapter.notifyDataSetChanged()
                 }
             })
     }
 
-    private fun button() {
-        with(binding) {
-            addTransaction.setOnClickListener {
-                val action =
-                    DashboardFragmentDirections.actionDashboardFragmentToAddFragment(
-                        FireStoreModel(null, null, null, null, null, null, null, null, null, null),
-                        false
-                    )
-                findNavController().navigate(action)
-            }
-        }
-    }
 
     private fun balanceViewInit(transactions: List<FireStoreModel>) {
         var udhaarGiven = 0.0
