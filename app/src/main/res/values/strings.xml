@@ -52,5 +52,6 @@
     <string name="twitter_login">Twitter</string>
     <string name="email_login">Email</string>
     <string name="phone_login">Phone</string>
+    <string name="search">Search</string>
 
 </resources>

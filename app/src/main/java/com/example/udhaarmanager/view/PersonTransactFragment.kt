@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.databinding.FragmentPersonTransactBinding
 import com.example.udhaarmanager.model.FireStoreModel
@@ -40,13 +41,18 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
 
 
     override fun onItemClicked(transaction: FireStoreModel) {
-        TODO("Not yet implemented")
+        val action = PersonTransactFragmentDirections.actionPersonTransactFragmentToDetailFragment(
+            transaction,
+            args.transactor
+        )
+        findNavController().navigate(action)
     }
 
     private fun adapterRecyclerView(listener: TransactionAdapter.ITransactionListener) {
         db = FirebaseFirestore.getInstance()
         allTransaction = arrayListOf()
-        db.collection(auth.currentUser?.email.toString()).document(args.transactor.number.toString())
+        db.collection(auth.currentUser?.email.toString())
+            .document(args.transactor.number.toString())
             .collection(args.transactor.name.toString())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
@@ -67,6 +73,7 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
                     Log.i("notes", "$allTransaction")
                     adapter = TransactionAdapter(listener, allTransaction)
                     binding.recyclerView.adapter = adapter
+                    balanceViewInit(allTransaction)
                     adapter.notifyDataSetChanged()
                 }
             })
@@ -80,6 +87,24 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
                 args.transactor
             )
             findNavController().navigate(action)
+        }
+
+        binding.bottomAppBar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.dashboardFragment)
+        }
+    }
+
+    private fun balanceViewInit(transactions: List<FireStoreModel>) {
+        var udhaarGiven = 0.0
+        var udhaarTaken = 0.0
+        transactions.forEach {
+            if (it.transactionType == "Udhaar_taken") {
+                udhaarGiven += it.amount!!
+            } else {
+                udhaarTaken += it.amount!!
+            }
+            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
+            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
         }
     }
 }

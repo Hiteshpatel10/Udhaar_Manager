@@ -31,6 +31,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var allTransaction: ArrayList<ContactModel>
+    private lateinit var all: ArrayList<FireStoreModel>
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -59,7 +60,6 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         }
     }
 
-
     private fun adapterRecyclerView(listener: DashboardAdapter.IDashboardAdapter) {
         db = FirebaseFirestore.getInstance()
         allTransaction = arrayListOf()
@@ -84,23 +84,35 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
                     adapter = DashboardAdapter(allTransaction, listener)
                     binding.recyclerView.adapter = adapter
                     adapter.notifyDataSetChanged()
+                    balanceViewInit(allTransaction)
                 }
             })
     }
 
-
-    private fun balanceViewInit(transactions: List<FireStoreModel>) {
-        var udhaarGiven = 0.0
-        var udhaarTaken = 0.0
-        transactions.forEach {
-            if (it.transactionType == "Udhaar_taken") {
-                udhaarGiven += it.amount!!
-            } else {
-                udhaarTaken += it.amount!!
-            }
-            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
-            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
-        }
+    private fun balanceViewInit(allTransaction: ArrayList<ContactModel>) {
+        db = FirebaseFirestore.getInstance()
+        db.collection(auth.currentUser?.email.toString())
+            .document(allTransaction[0].number.toString())
+            .collection(allTransaction[0].name.toString())
+            .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
+                    if (error != null) {
+                        Log.i("notes", error.message.toString())
+                        return
+                    }
+                    for (dc: DocumentChange in value?.documentChanges!!) {
+                        if (dc.type == DocumentChange.Type.ADDED) {
+                            Log.i("notes", "this")
+                            try {
+                                Log.i("notes2", "error")
+                            } catch (e: Exception) {
+                                Log.i("notes2", "error ${e.message}")
+                            }
+                        }
+                    }
+                    Log.i("notes", "$allTransaction")
+                }
+            })
     }
 
     private fun bottomNavOnClickListener() {
@@ -119,5 +131,4 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
             }
         }
     }
-
 }

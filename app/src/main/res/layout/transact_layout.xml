@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transact_cardView"
     android:layout_width="match_parent"
+    app:cardBackgroundColor="@color/surface"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_4"
     app:cardCornerRadius="@dimen/dimen_4">

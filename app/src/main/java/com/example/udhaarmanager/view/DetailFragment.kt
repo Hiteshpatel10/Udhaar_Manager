@@ -11,7 +11,6 @@ import com.example.udhaarmanager.R
 import com.example.udhaarmanager.base.BaseFragment
 import com.example.udhaarmanager.databinding.FragmentDetailBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
-import com.example.udhaarmanager.model.ContactModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -50,15 +49,26 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
 
     private fun bottomNavOnClickListeners() {
         binding.bottomAppBar.setNavigationOnClickListener {
-
+            val action =
+                DetailFragmentDirections.actionDetailFragmentToPersonTransactFragment(
+                    args.transactor
+                )
+            findNavController().navigate(action)
         }
 
         binding.bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.deleteButton -> {
-                    db.collection(collectionRef).document(args.transaction.createdAt.toString())
-                        .delete()
-
+                    db.collection(collectionRef).document(args.transactor.number.toString())
+                        .collection(args.transactor.name.toString())
+                        .document(args.transaction.createdAt.toString())
+                        .delete().addOnSuccessListener {
+                            val action =
+                                DetailFragmentDirections.actionDetailFragmentToPersonTransactFragment(
+                                    args.transactor
+                                )
+                            findNavController().navigate(action)
+                        }
                     true
                 }
 
@@ -70,7 +80,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                     val action = DetailFragmentDirections.actionDetailFragmentToAddFragment(
                         args.transaction,
                         true,
-                        ContactModel(null, "")
+                        args.transactor
                     )
                     findNavController().navigate(action)
                     true

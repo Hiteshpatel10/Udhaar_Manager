@@ -32,6 +32,7 @@ class AddFragment :
     private var auth: FirebaseAuth = Firebase.auth
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collectionRef = auth.currentUser?.email.toString()
+    private var createdAt: Long = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,8 +85,13 @@ class AddFragment :
         val borrowDate = it.whenAdd.text.toString()
         val returnDate = it.returnAdd.text.toString()
         val note = it.noteAdd.text.toString()
+        createdAt = if(args.transaction.createdAt == null){
+            System.currentTimeMillis()
+        }else{
+            args.transaction.createdAt!!.toLong()
+        }
 
-        return Transaction(name, amount, transactionType, tag, borrowDate, returnDate, note)
+        return Transaction(name, amount, transactionType, tag, borrowDate, returnDate, note, createdAt)
     }
 
     private fun loadData() {
@@ -98,7 +104,7 @@ class AddFragment :
             bind.tagAdd.setText(arg.tag)
             bind.whenAdd.setText(arg.borrowDate)
             bind.returnAdd.setText(arg.returnDate)
-            bind.noteAdd.setText(arg.returnDate)
+            bind.noteAdd.setText(arg.note)
         } catch (e: Exception) {
             Log.e("FragmentAdd", "${e.message}")
         }
@@ -112,15 +118,14 @@ class AddFragment :
         binding.bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.saveButtonMenu -> {
-                    val transaction: Transaction = getAddTransactionData()
-
-                    val createdAt: Long =
-                        System.currentTimeMillis()
+                    val transaction = getAddTransactionData()
                     db.collection(collectionRef).document(args.transactor.number.toString())
-                        .collection(args.transactor.name.toString()).document(createdAt.toString())
+                        .collection(args.transactor.name.toString()).document(transaction.createdAt.toString())
                         .set(transaction)
                         .also {
-                            findNavController().navigate(R.id.action_addFragment_to_dashboardFragment)
+                            val action =
+                                AddFragmentDirections.actionAddFragmentToPersonTransactFragment(args.transactor)
+                            findNavController().navigate(action)
                         }
                     true
                 }

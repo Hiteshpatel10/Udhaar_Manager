@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DashboardFragment"
-    android:padding="@dimen/dimen_4">
+    android:padding="@dimen/dimen_4"
+    tools:context=".view.DashboardFragment">
 
     <LinearLayout
         android:id="@+id/dashboard_group"
@@ -27,15 +27,15 @@
             android:layout_marginTop="@dimen/dimen_8"
             android:fontFamily="@font/open_sans_semibold"
             android:text="@string/text_all_transactions"
-            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/income_card_view" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="525dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dimen_16"
             android:layout_marginBottom="@dimen/dimen_64"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -57,8 +57,11 @@
         android:id="@+id/add_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/dimen_32"
         android:contentDescription="@string/add_button"
-        app:layout_anchor="@id/bottomAppBar"
+        android:text="@string/text_total_income"
+        app:borderWidth="0dp"
         app:srcCompat="@drawable/ic_baseline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
