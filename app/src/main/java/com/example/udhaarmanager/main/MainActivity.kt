@@ -1,7 +1,7 @@
 package com.example.udhaarmanager.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.udhaarmanager.R
 import dagger.hilt.android.AndroidEntryPoint
 

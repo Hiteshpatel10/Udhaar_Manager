@@ -2,7 +2,6 @@ package com.example.udhaarmanager.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionViewModel>(),
@@ -30,8 +30,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
     private lateinit var adapter: DashboardAdapter
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-    private lateinit var allTransaction: ArrayList<ContactModel>
-    private lateinit var all: ArrayList<FireStoreModel>
+    private lateinit var allTransactor: ArrayList<ContactModel>
+    private lateinit var allTransaction: ArrayList<FireStoreModel>
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -62,57 +62,74 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
 
     private fun adapterRecyclerView(listener: DashboardAdapter.IDashboardAdapter) {
         db = FirebaseFirestore.getInstance()
-        allTransaction = arrayListOf()
+        allTransactor = arrayListOf()
         db.collection(auth.currentUser?.email.toString())
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
-                        Log.i("notes", error.message.toString())
+                        Timber.e(error)
                         return
                     }
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
-                            Log.i("notes", "this")
                             try {
-                                allTransaction.add(dc.document.toObject(ContactModel::class.java))
+                                allTransactor.add(dc.document.toObject(ContactModel::class.java))
                             } catch (e: Exception) {
-                                Log.i("notes", "error ${e.message}")
+                                Timber.e(e)
                             }
                         }
                     }
-                    Log.i("notes", "$allTransaction")
-                    adapter = DashboardAdapter(allTransaction, listener)
+                    adapter = DashboardAdapter(allTransactor, listener)
                     binding.recyclerView.adapter = adapter
+                    balanceDataGather(allTransactor)
                     adapter.notifyDataSetChanged()
-                    balanceViewInit(allTransaction)
                 }
             })
     }
 
-    private fun balanceViewInit(allTransaction: ArrayList<ContactModel>) {
-        db = FirebaseFirestore.getInstance()
-        db.collection(auth.currentUser?.email.toString())
-            .document(allTransaction[0].number.toString())
-            .collection(allTransaction[0].name.toString())
-            .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
-                    if (error != null) {
-                        Log.i("notes", error.message.toString())
-                        return
-                    }
-                    for (dc: DocumentChange in value?.documentChanges!!) {
-                        if (dc.type == DocumentChange.Type.ADDED) {
-                            Log.i("notes", "this")
-                            try {
-                                Log.i("notes2", "error")
-                            } catch (e: Exception) {
-                                Log.i("notes2", "error ${e.message}")
+    private fun balanceDataGather(allTransactor: ArrayList<ContactModel>) {
+        allTransaction = arrayListOf()
+        allTransactor.forEach {
+            db.collection(auth.currentUser?.email.toString())
+                .document(it.number.toString())
+                .collection(it.name.toString())
+                .addSnapshotListener(object : EventListener<QuerySnapshot> {
+                    override fun onEvent(
+                        value: QuerySnapshot?,
+                        error: FirebaseFirestoreException?
+                    ) {
+                        if (error != null) {
+                            Timber.e(error)
+                            return
+                        }
+                        for (dc: DocumentChange in value?.documentChanges!!) {
+                            if (dc.type == DocumentChange.Type.ADDED) {
+                                try {
+                                    allTransaction.add(dc.document.toObject(FireStoreModel::class.java))
+                                } catch (e: Exception) {
+                                    Timber.e(e)
+                                }
                             }
                         }
+                        balanceViewInit(allTransaction)
                     }
-                    Log.i("notes", "$allTransaction")
-                }
-            })
+                })
+        }
+
+    }
+
+    private fun balanceViewInit(transactions: ArrayList<FireStoreModel>) {
+        var udhaarGiven = 0.0
+        var udhaarTaken = 0.0
+        transactions.forEach {
+            if (it.transactionType == "Udhaar_taken") {
+                udhaarGiven += it.amount!!
+            } else {
+                udhaarTaken += it.amount!!
+            }
+            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
+            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
+        }
     }
 
     private fun bottomNavOnClickListener() {

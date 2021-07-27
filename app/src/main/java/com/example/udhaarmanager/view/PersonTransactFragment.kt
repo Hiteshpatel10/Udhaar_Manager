@@ -1,7 +1,6 @@
 package com.example.udhaarmanager.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
+import timber.log.Timber
 
 class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListener {
 
@@ -57,20 +57,19 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
-                        Log.i("notes", error.message.toString())
+                       Timber.e(error.message.toString())
                         return
                     }
                     for (dc: DocumentChange in value?.documentChanges!!) {
                         if (dc.type == DocumentChange.Type.ADDED) {
-                            Log.i("notes", "this")
+                            Timber.i("added transaction")
                             try {
                                 allTransaction.add(dc.document.toObject(FireStoreModel::class.java))
                             } catch (e: Exception) {
-                                Log.i("notes", "error ${e.message}")
+                                Timber.e(e)
                             }
                         }
                     }
-                    Log.i("notes", "$allTransaction")
                     adapter = TransactionAdapter(listener, allTransaction)
                     binding.recyclerView.adapter = adapter
                     balanceViewInit(allTransaction)
