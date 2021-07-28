@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.RecyclerviewLayoutBinding
 import com.example.udhaarmanager.model.FireStoreModel
+import com.example.udhaarmanager.util.indianRupee
 
 class TransactionAdapter(
     private val listener: ITransactionListener,
@@ -43,7 +44,7 @@ class TransactionAdapter(
             } else {
                 binding.transactionIconView.setImageResource(R.drawable.expense_symbol)
             }
-            binding.transactionAmount.text = item.amount.toString()
+            binding.transactionAmount.text = indianRupee(item.amount!!)
             binding.transactionCategory.text = item.tag
             binding.transactionName.text = item.title
         }

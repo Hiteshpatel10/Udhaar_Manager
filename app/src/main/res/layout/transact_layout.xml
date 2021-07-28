@@ -4,25 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transact_cardView"
     android:layout_width="match_parent"
-    app:cardBackgroundColor="@color/surface"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_4"
-    app:cardCornerRadius="@dimen/dimen_4">
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="@dimen/dimen_8">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_4">
+        android:padding="@dimen/dimen_8">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dimen_4"
+            app:cardBackgroundColor="#292828"
+            app:cardCornerRadius="35dp">
+
+            <TextView
+                android:id="@+id/contact_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="A" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/transact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="26sp"
+            android:layout_marginStart="80dp"
             android:padding="@dimen/dimen_4"
+            android:textSize="22sp"
+            android:textStyle="bold"
             tools:text="@string/text_total_income" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/transact_last"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="28dp"
+            android:padding="@dimen/dimen_4"
+            android:text="dskjfahgjkg"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="@string/text_total_income" />
+
+        <TextView
+            android:id="@+id/transact_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/dimen_12"
+            android:text="500"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:text="400" />
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

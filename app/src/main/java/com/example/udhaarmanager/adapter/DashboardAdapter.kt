@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.databinding.TransactLayoutBinding
 import com.example.udhaarmanager.model.ContactModel
+import com.example.udhaarmanager.model.FireStoreModel
 
 class DashboardAdapter(
     private val allTransact: ArrayList<ContactModel>,
+    private val allTransactions: ArrayList<FireStoreModel>,
     private val listener: IDashboardAdapter
 ) :
     RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {

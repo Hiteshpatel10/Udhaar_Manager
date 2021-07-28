@@ -3,9 +3,11 @@ package com.example.udhaarmanager.util
 import android.app.DatePickerDialog
 import android.content.Context
 import com.google.android.material.textfield.TextInputEditText
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+//Date Picker
 fun TextInputEditText.transformIntoDatePicker(
     context: Context,
     format: String,
@@ -39,4 +41,12 @@ fun TextInputEditText.transformIntoDatePicker(
             show()
         }
     }
+}
+
+//Indian INR Symbol
+fun indianRupee(amount: Double): String {
+    val format: NumberFormat = NumberFormat.getCurrencyInstance()
+    format.maximumFractionDigits = 0
+    format.currency = Currency.getInstance("INR")
+    return format.format(amount)
 }

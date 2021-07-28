@@ -11,6 +11,7 @@ import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.databinding.FragmentPersonTransactBinding
 import com.example.udhaarmanager.model.FireStoreModel
+import com.example.udhaarmanager.util.indianRupee
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
@@ -102,8 +103,8 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
             } else {
                 udhaarTaken += it.amount!!
             }
-            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
-            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
+            binding.incomeCardView.givenTotal.text = indianRupee(udhaarGiven)
+            binding.incomeCardView.takenTotal.text = indianRupee(udhaarTaken)
         }
     }
 }

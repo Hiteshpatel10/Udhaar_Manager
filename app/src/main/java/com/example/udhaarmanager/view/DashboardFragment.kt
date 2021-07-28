@@ -16,6 +16,7 @@ import com.example.udhaarmanager.databinding.FragmentDashboardBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.model.ContactModel
 import com.example.udhaarmanager.model.FireStoreModel
+import com.example.udhaarmanager.util.indianRupee
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
@@ -79,7 +80,7 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
                             }
                         }
                     }
-                    adapter = DashboardAdapter(allTransactor, listener)
+                    adapter = DashboardAdapter(allTransactor, allTransaction,listener)
                     binding.recyclerView.adapter = adapter
                     balanceDataGather(allTransactor)
                     adapter.notifyDataSetChanged()
@@ -127,8 +128,8 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
             } else {
                 udhaarTaken += it.amount!!
             }
-            binding.incomeCardView.givenTotal.text = udhaarGiven.toString()
-            binding.incomeCardView.takenTotal.text = udhaarTaken.toString()
+            binding.incomeCardView.givenTotal.text = indianRupee(udhaarGiven)
+            binding.incomeCardView.takenTotal.text = indianRupee(udhaarTaken)
         }
     }
 
