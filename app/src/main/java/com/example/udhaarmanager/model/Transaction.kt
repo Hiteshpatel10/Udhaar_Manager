@@ -25,7 +25,8 @@ data class Transaction(
     @ColumnInfo(name = "note")
     var note: String,
     @ColumnInfo(name = "createdAt")
-    var createdAt: Long
+    var createdAt: Long,
+    var number: String,
 
 ) : Parcelable {
     @PrimaryKey(autoGenerate = true)

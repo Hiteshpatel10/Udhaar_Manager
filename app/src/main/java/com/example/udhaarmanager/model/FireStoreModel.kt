@@ -14,5 +14,6 @@ data class FireStoreModel(
     var note: String? = null,
     var createdAt: Long? = null,
     val createdAtDateFormat: String? = null,
-    val id: Long? = null
-): Parcelable
+    val id: Long? = null,
+    val number: String? = null
+) : Parcelable

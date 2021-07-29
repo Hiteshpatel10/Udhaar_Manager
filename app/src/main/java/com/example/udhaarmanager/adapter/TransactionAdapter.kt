@@ -1,5 +1,6 @@
 package com.example.udhaarmanager.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -41,8 +42,10 @@ class TransactionAdapter(
         fun bind(item: FireStoreModel) {
             if (item.transactionType == "Udhaar_taken") {
                 binding.transactionIconView.setImageResource(R.drawable.income_symbol)
+                binding.transactionAmount.setTextColor(Color.parseColor("#e50000"))
             } else {
                 binding.transactionIconView.setImageResource(R.drawable.expense_symbol)
+                binding.transactionAmount.setTextColor(Color.parseColor("#007300"))
             }
             binding.transactionAmount.text = indianRupee(item.amount!!)
             binding.transactionCategory.text = item.tag

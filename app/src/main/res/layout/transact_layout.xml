@@ -15,8 +15,8 @@
         android:padding="@dimen/dimen_8">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dimen_4"
@@ -49,10 +49,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="42dp"
             android:padding="@dimen/dimen_4"
-            android:text="dskjfahgjkg"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             tools:text="@string/text_total_income" />
 
@@ -61,9 +60,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dimen_8"
             android:padding="@dimen/dimen_12"
             android:text="500"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             tools:text="400" />
 

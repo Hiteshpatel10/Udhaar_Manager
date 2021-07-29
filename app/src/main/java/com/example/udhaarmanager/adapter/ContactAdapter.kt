@@ -7,10 +7,15 @@ import com.example.udhaarmanager.databinding.ContactLayoutBinding
 import com.example.udhaarmanager.model.ContactModel
 
 class ContactAdapter(
-    private val allContacts: List<ContactModel>,
     private val listener: IContactAdapter
 ) :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
+
+    var allContacts = listOf<ContactModel>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =

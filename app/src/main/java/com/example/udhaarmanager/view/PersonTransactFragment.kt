@@ -55,10 +55,11 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
         db.collection(auth.currentUser?.email.toString())
             .document(args.transactor.number.toString())
             .collection(args.transactor.name.toString())
+            .orderBy("createdAt", Query.Direction.DESCENDING)
             .addSnapshotListener(object : EventListener<QuerySnapshot> {
                 override fun onEvent(value: QuerySnapshot?, error: FirebaseFirestoreException?) {
                     if (error != null) {
-                       Timber.e(error.message.toString())
+                        Timber.e(error.message.toString())
                         return
                     }
                     for (dc: DocumentChange in value?.documentChanges!!) {

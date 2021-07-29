@@ -1,11 +1,13 @@
 package com.example.udhaarmanager.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.databinding.TransactLayoutBinding
 import com.example.udhaarmanager.model.ContactModel
 import com.example.udhaarmanager.model.FireStoreModel
+import com.example.udhaarmanager.util.indianRupee
 
 class DashboardAdapter(
     private val allTransact: ArrayList<ContactModel>,
@@ -13,6 +15,9 @@ class DashboardAdapter(
     private val listener: IDashboardAdapter
 ) :
     RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
+    var udhaarGiven = 0.0
+    var udhaarTaken = 0.0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             TransactLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,16 +30,34 @@ class DashboardAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = allTransact[position]
-        holder.bind(item)
+        val itemTransact = allTransact[position]
+        holder.bind(itemTransact)
     }
 
     override fun getItemCount(): Int = allTransact.size
 
     inner class ViewHolder(val binding: TransactLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ContactModel) {
-            binding.transactName.text = item.name
+        fun bind(itemTransact: ContactModel) {
+            allTransactions.forEach {
+                if (itemTransact.number == it.number) {
+                    if (it.transactionType == "Udhaar_taken") {
+                        udhaarGiven += it.amount!!
+                    } else {
+                        udhaarTaken += it.amount!!
+                    }
+                    binding.transactLast.text = it.createdAtDateFormat
+                }
+                binding.transactName.text = itemTransact.name
+                binding.contactImage.text = itemTransact.name!!.subSequence(0..0)
+                binding.transactTotal.text = indianRupee(udhaarGiven - udhaarTaken)
+                if(udhaarGiven - udhaarTaken < 0.0){
+                    binding.transactTotal.setTextColor(Color.parseColor("#e50000"))
+                }else{
+                    binding.transactTotal.setTextColor(Color.parseColor("#007300"))
+                }
+
+            }
         }
     }
 
@@ -42,3 +65,4 @@ class DashboardAdapter(
         fun onItemClicked(transactor: ContactModel)
     }
 }
+

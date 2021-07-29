@@ -1,7 +1,6 @@
 package com.example.udhaarmanager.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +20,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.lang.Double.parseDouble
 import java.util.*
 
@@ -85,13 +85,24 @@ class AddFragment :
         val borrowDate = it.whenAdd.text.toString()
         val returnDate = it.returnAdd.text.toString()
         val note = it.noteAdd.text.toString()
-        createdAt = if(args.transaction.createdAt == null){
+        createdAt = if (args.transaction.createdAt == null) {
             System.currentTimeMillis()
-        }else{
+        } else {
             args.transaction.createdAt!!.toLong()
         }
+        val number = args.transactor.number.toString()
 
-        return Transaction(name, amount, transactionType, tag, borrowDate, returnDate, note, createdAt)
+        return Transaction(
+            name,
+            amount,
+            transactionType,
+            tag,
+            borrowDate,
+            returnDate,
+            note,
+            createdAt,
+            number
+        )
     }
 
     private fun loadData() {
@@ -106,7 +117,7 @@ class AddFragment :
             bind.returnAdd.setText(arg.returnDate)
             bind.noteAdd.setText(arg.note)
         } catch (e: Exception) {
-            Log.e("FragmentAdd", "${e.message}")
+            Timber.e(e)
         }
     }
 
@@ -120,7 +131,8 @@ class AddFragment :
                 R.id.saveButtonMenu -> {
                     val transaction = getAddTransactionData()
                     db.collection(collectionRef).document(args.transactor.number.toString())
-                        .collection(args.transactor.name.toString()).document(transaction.createdAt.toString())
+                        .collection(args.transactor.name.toString())
+                        .document(transaction.createdAt.toString())
                         .set(transaction)
                         .also {
                             val action =

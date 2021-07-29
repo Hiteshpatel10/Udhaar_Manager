@@ -6,28 +6,33 @@ import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.ContactAdapter
 import com.example.udhaarmanager.databinding.FragmentAddContactBinding
+import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
 import com.example.udhaarmanager.model.ContactModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
-class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter {
+@AndroidEntryPoint
+class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
+    SearchView.OnQueryTextListener {
 
+    val viewModel: TransactionViewModel by viewModels()
     private var contactList: MutableList<ContactModel> = ArrayList()
+    private var searchResultList: MutableList<ContactModel> = ArrayList()
     private lateinit var adapter: ContactAdapter
     private lateinit var binding: FragmentAddContactBinding
     private lateinit var layout: View
@@ -69,10 +74,54 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter {
         onClickRequestPermission()
 
         //RecyclerView Adapter Initialized
-        adapter = ContactAdapter(contactList, this)
+        adapter = ContactAdapter(this)
+        adapter.allContacts = contactList
         binding.contactRecyclerView.adapter = adapter
 
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    //Option Menu Created
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.add_contact_menu, menu)
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search?.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    //Search Query Listener
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        searchResultList.clear()
+        contactList.forEach {
+            if (query == it.number || query == it.name) {
+                searchResultList.add(it)
+            }
+            adapter.allContacts = searchResultList
+        }
+        return true
+    }
+
+    //Search Query Listener
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if (newText.isNullOrEmpty()) {
+            adapter.allContacts = contactList
+        }
+        searchResultList.clear()
+        contactList.forEach {
+            if (newText?.compareTo(it.name.toString(),true) == 1) {
+                searchResultList.add(it)
+            } else if (newText == it.number) {
+                searchResultList.add(it)
+            }
+        }
+
+        if (newText!!.isNotEmpty()){
+            adapter.allContacts = searchResultList
+        }
+        return true
     }
 
     //RecyclerView Interface Implemented
@@ -105,7 +154,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter {
         contacts.close()
     }
 
-    //Requesting Contact Read Permission At Runtimen
+    //Requesting Contact Read Permission At Runtime
     private fun onClickRequestPermission() {
         when {
             ContextCompat.checkSelfPermission(
@@ -113,7 +162,6 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter {
                 Manifest.permission.READ_CONTACTS,
             ) == PackageManager.PERMISSION_GRANTED -> {
                 readContacts()
-                Toast.makeText(requireContext(), "ag", Toast.LENGTH_LONG).show()
             }
 
             ActivityCompat.shouldShowRequestPermissionRationale(
