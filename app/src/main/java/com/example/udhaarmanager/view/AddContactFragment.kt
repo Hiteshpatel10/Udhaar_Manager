@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.ContactAdapter
@@ -46,6 +47,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
     private var auth: FirebaseAuth = Firebase.auth
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collectionRef = auth.currentUser?.email.toString()
+    var list1 = MutableLiveData<ArrayList<ContactModel>>()
 
 
     //Request Contact Permission
@@ -78,6 +80,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
         adapter.allContacts = contactList
         binding.contactRecyclerView.adapter = adapter
 
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -108,6 +111,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText.isNullOrEmpty()) {
             adapter.allContacts = contactList
+            viewModel.list.value?.addAll(contactList)
         }
         searchResultList.clear()
         contactList.forEach {

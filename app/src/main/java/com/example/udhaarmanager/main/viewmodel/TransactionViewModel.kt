@@ -17,6 +17,7 @@ class TransactionViewModel @Inject constructor(
     AndroidViewModel(application) {
 
     val allTransaction: LiveData<List<Transaction>> = transactionRepo.getAllTransaction.asLiveData()
+    var list = MutableLiveData<ArrayList<ContactModel>>()
 
     var allContact = listOf<ContactModel>()
 

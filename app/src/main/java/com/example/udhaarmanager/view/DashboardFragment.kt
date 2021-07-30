@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.DashboardAdapter
 import com.example.udhaarmanager.auth.AuthActivity
@@ -43,6 +44,7 @@ class DashboardFragment : Fragment(),
         auth = Firebase.auth
         addContact()
         adapterRecyclerView(this)
+        onScrolled()
         bottomNavOnClickListener()
 
         NavigationUI.setupWithNavController(binding.navView, findNavController())
@@ -137,6 +139,19 @@ class DashboardFragment : Fragment(),
         adapter = DashboardAdapter(allTransactor, allTransaction, listener)
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
+    }
+
+    private fun onScrolled() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    binding.addTransaction.shrink()
+                } else {
+                    binding.addTransaction.extend()
+                }
+            }
+        })
     }
 
     private fun bottomNavOnClickListener() {

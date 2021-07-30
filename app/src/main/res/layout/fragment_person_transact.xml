@@ -36,16 +36,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:menu="@menu/add_contact_menu"
         app:navigationIcon="@drawable/ic_baseline_keyboard_backspace_24" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_gravity="center|bottom"
         android:layout_margin="@dimen/dimen_32"
         android:contentDescription="@string/add_button"
         app:borderWidth="0dp"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        android:text="Transaction"
+        app:icon="@drawable/ic_baseline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

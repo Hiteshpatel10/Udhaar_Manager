@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.TransactionAdapter
 import com.example.udhaarmanager.databinding.FragmentPersonTransactBinding
@@ -36,6 +37,7 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
 
         auth = Firebase.auth
         adapterRecyclerView(this)
+        onScrolled()
         bottomNavOnClickListener()
         return binding.root
     }
@@ -78,6 +80,19 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
                     adapter.notifyDataSetChanged()
                 }
             })
+    }
+
+    private fun onScrolled(){
+        binding.recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    binding.addTransaction.shrink()
+                } else {
+                    binding.addTransaction.extend()
+                }
+            }
+        })
     }
 
     private fun bottomNavOnClickListener() {

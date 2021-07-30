@@ -15,8 +15,6 @@ class DashboardAdapter(
     private val listener: IDashboardAdapter
 ) :
     RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
-    var udhaarGiven = 0.0
-    var udhaarTaken = 0.0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -38,6 +36,8 @@ class DashboardAdapter(
 
     inner class ViewHolder(val binding: TransactLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        var udhaarGiven = 0.0
+        var udhaarTaken = 0.0
         fun bind(itemTransact: ContactModel) {
             allTransactions.forEach {
                 if (itemTransact.number == it.number) {
