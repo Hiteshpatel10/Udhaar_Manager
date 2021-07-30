@@ -51,7 +51,12 @@ class DashboardFragment : Fragment(),
 
     override fun onItemClicked(transactor: ContactModel) {
         val action =
-            DashboardFragmentDirections.actionDashboardFragmentToPersonTransactFragment(transactor)
+            DashboardFragmentDirections.actionDashboardFragmentToPersonTransactFragment(
+                ContactModel(
+                    transactor.name,
+                    transactor.number
+                )
+            )
         findNavController().navigate(action)
     }
 

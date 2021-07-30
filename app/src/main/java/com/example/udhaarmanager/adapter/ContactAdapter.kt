@@ -4,18 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.udhaarmanager.databinding.ContactLayoutBinding
-import com.example.udhaarmanager.model.ContactModel
+import com.example.udhaarmanager.model.Contact
 
 class ContactAdapter(
     private val listener: IContactAdapter
 ) :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
 
-    var allContacts = listOf<ContactModel>()
+    var allContacts = listOf<Contact>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+    fun setData(contacts: List<Contact>) {
+        allContacts = contacts
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -38,7 +42,7 @@ class ContactAdapter(
 
     inner class ViewHolder(private val binding: ContactLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(contactDetail: ContactModel) {
+        fun bind(contactDetail: Contact) {
             binding.contactName.text = contactDetail.name
             binding.contactNumber.text = contactDetail.number
             binding.contactImage.text = contactDetail.name?.subSequence(0..0)
@@ -46,6 +50,6 @@ class ContactAdapter(
     }
 
     interface IContactAdapter {
-        fun onItemClicked(contact: ContactModel)
+        fun onItemClicked(contact: Contact)
     }
 }
