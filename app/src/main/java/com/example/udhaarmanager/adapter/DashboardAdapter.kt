@@ -24,6 +24,10 @@ class DashboardAdapter(
         binding.transactCardView.setOnClickListener {
             listener.onItemClicked(allTransact[viewHolder.adapterPosition])
         }
+
+        binding.deleteTransactor.setOnClickListener {
+            listener.onLongPressed(allTransact[viewHolder.adapterPosition])
+        }
         return viewHolder
     }
 
@@ -63,6 +67,7 @@ class DashboardAdapter(
 
     interface IDashboardAdapter {
         fun onItemClicked(transactor: ContactModel)
+        fun onLongPressed(transactor: ContactModel)
     }
 }
 

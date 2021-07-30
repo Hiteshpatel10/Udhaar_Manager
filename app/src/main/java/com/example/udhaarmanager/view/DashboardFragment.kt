@@ -24,12 +24,13 @@ import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+
 @AndroidEntryPoint
 class DashboardFragment : Fragment(),
     DashboardAdapter.IDashboardAdapter {
     private lateinit var adapter: DashboardAdapter
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+    private var auth: FirebaseAuth = Firebase.auth
+    private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private lateinit var allTransactor: ArrayList<ContactModel>
     private lateinit var allTransaction: ArrayList<FireStoreModel>
     private lateinit var binding: FragmentDashboardBinding
@@ -59,6 +60,12 @@ class DashboardFragment : Fragment(),
                     transactor.number
                 )
             )
+        findNavController().navigate(action)
+    }
+
+    override fun onLongPressed(transactor: ContactModel) {
+        val action =
+            DashboardFragmentDirections.actionDashboardFragmentToBottomSheetFragment(transactor)
         findNavController().navigate(action)
     }
 

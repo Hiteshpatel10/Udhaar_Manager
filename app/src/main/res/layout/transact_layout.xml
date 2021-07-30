@@ -55,12 +55,19 @@
             android:textStyle="bold"
             tools:text="@string/text_total_income" />
 
+        <ImageView
+            android:id="@+id/delete_transactor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_4"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            android:layout_alignParentEnd="true"/>
         <TextView
             android:id="@+id/transact_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/dimen_8"
+            android:layout_marginTop="@dimen/dimen_24"
             android:padding="@dimen/dimen_12"
             android:text="500"
             android:textSize="20sp"

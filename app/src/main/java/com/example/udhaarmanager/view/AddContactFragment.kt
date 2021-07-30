@@ -133,8 +133,8 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
     }
 
     //RecyclerView Interface Implemented
-    override fun onItemClicked(contact: ContactModel) {
-        contact.number?.let {
+    override fun onItemClicked(contact: Contact) {
+        contact.number.let {
             db.collection(collectionRef).document(it).set(contact).also {
                 findNavController().navigate(R.id.action_addPersonFragment_to_dashboardFragment)
             }
