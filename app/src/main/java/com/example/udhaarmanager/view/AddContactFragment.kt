@@ -13,13 +13,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.adapter.ContactAdapter
 import com.example.udhaarmanager.databinding.FragmentAddContactBinding
 import com.example.udhaarmanager.main.viewmodel.TransactionViewModel
-import com.example.udhaarmanager.model.ContactModel
+import com.example.udhaarmanager.model.Contact
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -32,8 +31,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
     SearchView.OnQueryTextListener {
 
     val viewModel: TransactionViewModel by viewModels()
-    private var contactList: MutableList<ContactModel> = ArrayList()
-    private var searchResultList: MutableList<ContactModel> = ArrayList()
+
     private lateinit var adapter: ContactAdapter
     private lateinit var binding: FragmentAddContactBinding
     private lateinit var layout: View
@@ -47,7 +45,6 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
     private var auth: FirebaseAuth = Firebase.auth
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val collectionRef = auth.currentUser?.email.toString()
-    var list1 = MutableLiveData<ArrayList<ContactModel>>()
 
 
     //Request Contact Permission
@@ -77,8 +74,13 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
 
         //RecyclerView Adapter Initialized
         adapter = ContactAdapter(this)
-        adapter.allContacts = contactList
         binding.contactRecyclerView.adapter = adapter
+        viewModel.allContacts.observe(viewLifecycleOwner, {
+            it?.let {
+                adapter.allContacts = it
+            }
+        })
+
 
 
         setHasOptionsMenu(true)
@@ -97,35 +99,37 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
 
     //Search Query Listener
     override fun onQueryTextSubmit(query: String?): Boolean {
-        searchResultList.clear()
-        contactList.forEach {
-            if (query == it.number || query == it.name) {
-                searchResultList.add(it)
+        if (query != null) {
+            if (query.isNotEmpty()) {
+                searchDatabase(query)
             }
-            adapter.allContacts = searchResultList
         }
         return true
     }
 
     //Search Query Listener
     override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText.isNullOrEmpty()) {
-            adapter.allContacts = contactList
-            viewModel.list.value?.addAll(contactList)
-        }
-        searchResultList.clear()
-        contactList.forEach {
-            if (newText?.compareTo(it.name.toString(),true) == 1) {
-                searchResultList.add(it)
-            } else if (newText == it.number) {
-                searchResultList.add(it)
+        if (newText != null) {
+            if (newText.isNotEmpty()) {
+                searchDatabase(newText)
+            } else {
+                viewModel.allContacts.observe(viewLifecycleOwner, {
+                    adapter.allContacts = it
+                })
             }
         }
 
-        if (newText!!.isNotEmpty()){
-            adapter.allContacts = searchResultList
-        }
         return true
+    }
+
+    private fun searchDatabase(query: String?) {
+        val searchQuery = "%$query%"
+
+        viewModel.searchContact(searchQuery).observe(viewLifecycleOwner, {
+            it.let {
+                adapter.setData(it)
+            }
+        })
     }
 
     //RecyclerView Interface Implemented
@@ -153,7 +157,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
             val number =
                 contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-            contactList.add(ContactModel(name, number))
+            viewModel.insert(Contact(name, number))
         }
         contacts.close()
     }

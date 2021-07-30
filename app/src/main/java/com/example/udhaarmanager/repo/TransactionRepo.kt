@@ -1,32 +1,19 @@
 package com.example.udhaarmanager.repo
 
-import com.example.udhaarmanager.database.TransactionDao
-import com.example.udhaarmanager.model.Transaction
+import com.example.udhaarmanager.database.ContactDao
+import com.example.udhaarmanager.model.Contact
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class TransactionRepo @Inject constructor(private val database: TransactionDao) {
+class TransactionRepo @Inject constructor(private val database: ContactDao) {
 
-    suspend fun insert(transaction: Transaction) {
-        database.insertTransaction(transaction)
+    suspend fun insert(contact: Contact) {
+        database.insertContact(contact)
     }
 
-    suspend fun delete(id: Int) {
-        database.deleteTransaction(id)
-    }
+    val getAllContacts: Flow<List<Contact>> = database.getAllContacts()
 
-    suspend fun update(transaction: Transaction) {
-        database.updateTransaction(transaction)
-    }
-
-    val getAllTransaction: Flow<List<Transaction>> = database.getAllTransaction()
-
-
-    fun getAllTransactionType(transactionType: String) {
-        if (transactionType == "Overall") {
-            getAllTransaction
-        } else {
-            database.getAllTransactionType(transactionType)
-        }
+    fun searchContact(query: String): Flow<List<Contact>> {
+        return database.contactSearch(query)
     }
 }

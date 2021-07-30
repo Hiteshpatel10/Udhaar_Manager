@@ -3,7 +3,7 @@ package com.example.udhaarmanager.di
 import android.content.Context
 import androidx.room.Room
 import com.example.udhaarmanager.database.AppDatabase
-import com.example.udhaarmanager.database.TransactionDao
+import com.example.udhaarmanager.database.ContactDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ class AppModule {
     }
 
     @Provides
-    fun transactionDao(database: AppDatabase): TransactionDao {
-        return database.getTransactionDao()
+    fun transactionDao(database: AppDatabase): ContactDao {
+        return database.getContactDao()
     }
 }

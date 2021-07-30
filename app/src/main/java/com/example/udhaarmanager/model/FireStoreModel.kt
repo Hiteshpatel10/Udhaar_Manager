@@ -17,3 +17,9 @@ data class FireStoreModel(
     val id: Long? = null,
     val number: String? = null
 ) : Parcelable
+
+@Parcelize
+data class ContactModel(
+    var name: String? = null,
+    val number: String?= null
+): Parcelable

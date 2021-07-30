@@ -1,9 +1,11 @@
 package com.example.udhaarmanager.main.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.example.udhaarmanager.model.ContactModel
-import com.example.udhaarmanager.model.Transaction
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.udhaarmanager.model.Contact
 import com.example.udhaarmanager.repo.TransactionRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,26 +18,15 @@ class TransactionViewModel @Inject constructor(
 ) :
     AndroidViewModel(application) {
 
-    val allTransaction: LiveData<List<Transaction>> = transactionRepo.getAllTransaction.asLiveData()
-    var list = MutableLiveData<ArrayList<ContactModel>>()
-
-    var allContact = listOf<ContactModel>()
-
-    var allContact1 = MutableLiveData<ArrayList<ContactModel>>()
+    val allContacts = transactionRepo.getAllContacts.asLiveData()
 
     //insert transaction
-    fun insert(transaction: Transaction) = viewModelScope.launch {
-        transactionRepo.insert(transaction)
+    fun insert(contact: Contact) = viewModelScope.launch {
+        transactionRepo.insert(contact)
     }
 
-    //delete transaction
-    fun delete(id: Int) = viewModelScope.launch {
-        transactionRepo.delete(id)
-    }
-
-    //update transaction
-    fun update(transaction: Transaction) = viewModelScope.launch {
-        transactionRepo.update(transaction)
+    fun searchContact(query: String): LiveData<List<Contact>> {
+        return transactionRepo.searchContact(query).asLiveData()
     }
 
 }
