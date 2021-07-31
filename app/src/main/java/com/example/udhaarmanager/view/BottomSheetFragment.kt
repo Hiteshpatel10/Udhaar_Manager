@@ -34,12 +34,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.deleteBottomSheet.setOnClickListener {
             db.collection(collectionRef).document(args.transactor.number.toString()).delete().also {
-                findNavController().navigate(R.id.action_bottomSheetFragment_to_dashboardFragment)
+                findNavController().navigate(R.id.dashboardFragment)
             }
         }
 
         binding.cancelBottomSheet.setOnClickListener {
-            findNavController().navigate(R.id.action_bottomSheetFragment_to_dashboardFragment)
+            findNavController().navigate(R.id.dashboardFragment)
         }
         return binding.root
     }

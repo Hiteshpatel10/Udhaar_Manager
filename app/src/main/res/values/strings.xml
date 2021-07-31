@@ -24,12 +24,11 @@
     <string name="text_filter">Filter</string>
     <string name="text_edit">Edit</string>
     <string name="text_createdAt">Created At</string>
+    <string name="text_youWillGet">you will get</string>
+    <string name="text_youWillGive">you will give</string>
 
     <!--  About -->
-    <string name="text_about_license_title"><![CDATA[Attributions & License]]></string>
-    <string name="text_about_license">Licensed Under Apache 2.0 License</string>
     <string name="text_about_visit_title">Visit</string>
-    <string name="text_about_visit_url"><u>https://github.com/Spikeysanju/Expenso</u></string>
     <string name="text_app_version">v%s (%d)</string>
     <string name="text_share_as_text">Share as Text</string>
     <string name="text_share_as_image">Share as Image</string>

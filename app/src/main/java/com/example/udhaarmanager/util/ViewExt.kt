@@ -50,3 +50,5 @@ fun indianRupee(amount: Double): String {
     format.currency = Currency.getInstance("INR")
     return format.format(amount)
 }
+
+

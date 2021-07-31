@@ -136,7 +136,7 @@ class AddContactFragment : Fragment(), ContactAdapter.IContactAdapter,
     override fun onItemClicked(contact: Contact) {
         contact.number.let {
             db.collection(collectionRef).document(it).set(contact).also {
-                findNavController().navigate(R.id.action_addPersonFragment_to_dashboardFragment)
+                findNavController().navigate(R.id.dashboardFragment)
             }
         }
     }

@@ -19,7 +19,12 @@
             app:destination="@id/addPersonFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_personTransactFragment"
-            app:destination="@id/personTransactFragment" />
+            app:destination="@id/personTransactFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_dashboardFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -29,9 +34,6 @@
         android:name="com.example.udhaarmanager.view.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add">
-        <action
-            android:id="@+id/action_addFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
         <argument
             android:name="transaction"
             app:argType="com.example.udhaarmanager.model.FireStoreModel" />
@@ -43,7 +45,8 @@
             app:argType="com.example.udhaarmanager.model.ContactModel" />
         <action
             android:id="@+id/action_addFragment_to_personTransactFragment"
-            app:destination="@id/personTransactFragment" />
+            app:destination="@id/personTransactFragment"
+            app:popUpTo="@id/personTransactFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -61,17 +64,15 @@
             app:argType="com.example.udhaarmanager.model.ContactModel" />
         <action
             android:id="@+id/action_detailFragment_to_personTransactFragment"
-            app:destination="@id/personTransactFragment" />
+            app:destination="@id/personTransactFragment"
+            app:popUpTo="@id/personTransactFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/addPersonFragment"
         android:name="com.example.udhaarmanager.view.AddContactFragment"
         android:label="fragment_add_person"
-        tools:layout="@layout/fragment_add_contact">
-        <action
-            android:id="@+id/action_addPersonFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_contact"/>
     <fragment
         android:id="@+id/personTransactFragment"
         android:name="com.example.udhaarmanager.view.PersonTransactFragment"
@@ -94,8 +95,5 @@
         <argument
             android:name="Transactor"
             app:argType="com.example.udhaarmanager.model.ContactModel" />
-        <action
-            android:id="@+id/action_bottomSheetFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
     </dialog>
 </navigation>
