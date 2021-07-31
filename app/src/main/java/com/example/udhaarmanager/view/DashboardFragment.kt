@@ -49,6 +49,7 @@ class DashboardFragment : Fragment(),
         bottomNavOnClickListener()
 
         NavigationUI.setupWithNavController(binding.navView, findNavController())
+        drawerLayoutClickListener()
         return binding.root
     }
 
@@ -68,6 +69,7 @@ class DashboardFragment : Fragment(),
             DashboardFragmentDirections.actionDashboardFragmentToBottomSheetFragment(transactor)
         findNavController().navigate(action)
     }
+
 
     private fun addContact() {
         binding.addTransaction.setOnClickListener {
@@ -145,8 +147,13 @@ class DashboardFragment : Fragment(),
             } else {
                 udhaarTaken += it.amount!!
             }
-            binding.incomeCardView.givenTotal.text = indianRupee(udhaarGiven)
-            binding.incomeCardView.takenTotal.text = indianRupee(udhaarTaken)
+            if ((udhaarGiven - udhaarTaken) < 0) {
+                binding.balanceView.udhaarText.text = "You Will Get"
+                binding.balanceView.udhaarAmount.text = indianRupee(udhaarTaken - udhaarGiven)
+            } else {
+                binding.balanceView.udhaarText.text = "You Will Give"
+                binding.balanceView.udhaarAmount.text = indianRupee(udhaarGiven - udhaarTaken)
+            }
         }
         adapter = DashboardAdapter(allTransactor, allTransaction, listener)
         binding.recyclerView.adapter = adapter
@@ -167,13 +174,15 @@ class DashboardFragment : Fragment(),
     }
 
     private fun bottomNavOnClickListener() {
-
         //Navigation Drawer Open
         binding.bottomAppBar.setOnClickListener {
             binding.drawerLayout.openDrawer(binding.navView)
         }
-        binding.bottomAppBar.setOnMenuItemClickListener { item ->
-            when (item.itemId) {
+    }
+
+    private fun drawerLayoutClickListener() {
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.logout -> {
                     auth.signOut()
                     Toast.makeText(requireContext(), "SignOut", Toast.LENGTH_LONG).show()
@@ -183,8 +192,11 @@ class DashboardFragment : Fragment(),
                     }
                     true
                 }
-                else -> false
+                else -> {
+                    false
+                }
             }
         }
     }
+
 }

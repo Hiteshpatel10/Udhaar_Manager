@@ -40,7 +40,7 @@
     <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
-    <string name="add_button">add_button</string>
+    <string name="add_button">Add Transactor</string>
     <string name="name">Name</string>
     <string name="text_expected_return">Expected Return</string>
     <string name="borrowed_on">Borrowed ON</string>

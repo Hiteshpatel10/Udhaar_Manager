@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/income_card_view"
+                android:id="@+id/balance_view"
                 layout="@layout/fragment_balance_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -55,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@menu/dashboard_fragment_menu"
             app:navigationIcon="@drawable/ic_baseline_menu_24" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -65,7 +64,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/dimen_32"
             android:contentDescription="@string/add_button"
-            android:text="@string/text_total_income"
+            android:text="@string/add_button"
             app:borderWidth="0dp"
             app:icon="@drawable/ic_baseline_add_24" />
 

@@ -82,8 +82,8 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
             })
     }
 
-    private fun onScrolled(){
-        binding.recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+    private fun onScrolled() {
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
@@ -119,8 +119,13 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
             } else {
                 udhaarTaken += it.amount!!
             }
-            binding.incomeCardView.givenTotal.text = indianRupee(udhaarGiven)
-            binding.incomeCardView.takenTotal.text = indianRupee(udhaarTaken)
+            if ((udhaarGiven - udhaarTaken) < 0) {
+                binding.balanceView.udhaarText.text = "You Will Get"
+                binding.balanceView.udhaarAmount.text = indianRupee(udhaarTaken-udhaarGiven)
+            } else {
+                binding.balanceView.udhaarText.text = "You Will Give"
+                binding.balanceView.udhaarAmount.text = indianRupee(udhaarGiven - udhaarTaken)
+            }
         }
     }
 }
