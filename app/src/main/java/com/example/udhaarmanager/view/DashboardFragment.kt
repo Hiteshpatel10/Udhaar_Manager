@@ -1,6 +1,7 @@
 package com.example.udhaarmanager.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -115,12 +116,14 @@ class DashboardFragment : Fragment(),
             else
                 udhaarTaken += it.amount!!
 
-            if ((udhaarGiven - udhaarTaken) < 0) {
-                binding.balanceView.udhaarText.setText(R.string.text_youWillGet)
+            if ((udhaarGiven - udhaarTaken) > 0) {
+                binding.balanceView.udhaarText.setText(R.string.text_youWillGive)
                 binding.balanceView.udhaarAmount.text = indianRupee(udhaarTaken - udhaarGiven)
+                binding.balanceView.udhaarAmount.setTextColor(Color.parseColor("#e50000"))
             } else {
                 binding.balanceView.udhaarText.setText(R.string.text_youWillGive)
                 binding.balanceView.udhaarAmount.text = indianRupee(udhaarGiven - udhaarTaken)
+                binding.balanceView.udhaarAmount.setTextColor(Color.parseColor("#007300"))
             }
         }
         adapter = DashboardAdapter(allTransactor, allTransaction, listener)
