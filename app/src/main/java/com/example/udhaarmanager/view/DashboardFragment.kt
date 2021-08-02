@@ -129,6 +129,7 @@ class DashboardFragment : Fragment(),
         adapter = DashboardAdapter(allTransactor, allTransaction, listener)
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
+
     }
 
     private fun onScrolled() {
@@ -141,7 +142,7 @@ class DashboardFragment : Fragment(),
                     binding.addTransaction.extend()
                 }
 
-                if (dy > (recyclerView.layoutManager?.itemCount?.minus(2)!!)) {
+                if ((dy > (recyclerView.layoutManager?.itemCount!!)) && (recyclerView.layoutManager?.itemCount!! > 4)) {
                     binding.addTransaction.hide()
                 } else {
                     binding.addTransaction.show()

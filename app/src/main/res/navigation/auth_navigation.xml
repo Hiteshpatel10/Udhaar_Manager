@@ -22,5 +22,13 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_passwordResetFragment"
+            app:destination="@id/passwordResetFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="com.example.udhaarmanager.auth.PasswordResetFragment"
+        android:label="fragment_password_reset"
+        tools:layout="@layout/fragment_password_reset" />
 </navigation>

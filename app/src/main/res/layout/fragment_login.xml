@@ -122,15 +122,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Create an acoount?"
+                android:text="Forgot you login details?"
+                android:textColor="#1566e0"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/forgotDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Get help logging in."
+                android:textColor="#156666"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Don't have an account?"
                 android:textColor="#1566e0"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/register"
-                android:layout_marginStart="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Register"
                 android:textColor="#156666"

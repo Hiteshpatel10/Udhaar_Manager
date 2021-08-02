@@ -52,5 +52,6 @@
     <string name="email_login">Email</string>
     <string name="phone_login">Phone</string>
     <string name="search">Search</string>
+    <string name="text_no_transaction_yet">No transaction yet!</string>
 
 </resources>
