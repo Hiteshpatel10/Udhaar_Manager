@@ -11,6 +11,7 @@
     //Custom
     <color name="blue_500">#006AF6</color>
     <color name="surface">#FFFFFF</color>
+    <color name="surface_2">#F7F7F7</color>
     <color name="background">#f9f9f9</color>
     <color name="income">#6FCF97</color>
     <color name="expense">#EB5757</color>

@@ -10,23 +10,31 @@
     android:layout_marginEnd="@dimen/dimen_8"
     app:cardBackgroundColor="@color/surface"
     app:cardCornerRadius="@dimen/dimen_8"
-    app:cardElevation="@dimen/dimen_0">
+    app:cardElevation="@dimen/dimen_32">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/transactionIconView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_16"
-            android:background="@color/cardview_dark_background"
-            android:contentDescription="@string/app_name"
-            android:padding="@dimen/dimen_24"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/iconViewCardView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="@dimen/dimen_12"
+            app:cardBackgroundColor="@color/surface_2"
+            app:cardCornerRadius="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/transactionIconView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dimen_24" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/transactionName"
@@ -36,7 +44,8 @@
             android:layout_marginTop="@dimen/dimen_24"
             android:fontFamily="@font/open_sans_semibold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintStart_toEndOf="@id/transactionIconView"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@id/iconViewCardView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Brochure Design" />
 
@@ -48,7 +57,7 @@
             android:layout_marginTop="@dimen/dimen_8"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintStart_toEndOf="@id/transactionIconView"
+            app:layout_constraintStart_toEndOf="@id/iconViewCardView"
             app:layout_constraintTop_toBottomOf="@id/transactionName"
             tools:text="Business work" />
 

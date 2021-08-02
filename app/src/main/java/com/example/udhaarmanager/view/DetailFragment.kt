@@ -1,9 +1,11 @@
 package com.example.udhaarmanager.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,6 +49,25 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
         detailLayout.createdAtValue.text = args.transaction.createdAtDateFormat
     }
 
+    private fun shareAsText() {
+        val share = getString(
+            R.string.share_message,
+            args.transaction.title.toString(),
+            args.transaction.amount.toString(),
+            args.transaction.transactionType.toString(),
+            args.transaction.tag.toString(),
+            args.transaction.borrowDate.toString(),
+            args.transaction.note.toString(),
+            args.transaction.createdAtDateFormat.toString()
+        )
+
+        val intent = ShareCompat.IntentBuilder(requireActivity())
+            .setType("text/plain")
+            .setText(share)
+            .intent
+        startActivity(Intent.createChooser(intent, "Share Via"))
+    }
+
     private fun bottomNavOnClickListeners() {
         binding.bottomAppBar.setNavigationOnClickListener {
             val action =
@@ -73,6 +94,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, TransactionViewModel>
                 }
 
                 R.id.shareButton -> {
+                    shareAsText()
                     true
                 }
 

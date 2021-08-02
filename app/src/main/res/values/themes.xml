@@ -14,6 +14,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+
     <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
         <item name="textAllCaps">true</item>
         <item name="android:textSize">14sp</item>

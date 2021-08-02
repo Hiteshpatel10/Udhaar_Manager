@@ -3,11 +3,11 @@ package com.example.udhaarmanager.auth
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.FragmentLoginBinding
@@ -33,6 +33,9 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
+        binding.forgotDetails.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_passwordResetFragment)
+        }
         return binding.root
     }
 
@@ -64,7 +67,7 @@ class LoginFragment : Fragment() {
 
                             Toast.makeText(
                                 requireContext(),
-                                "successful $firebaseUser",
+                                "Welcome ${firebaseUser.email}",
                                 Toast.LENGTH_LONG
                             ).show()
 

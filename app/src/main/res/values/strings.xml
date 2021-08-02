@@ -24,12 +24,11 @@
     <string name="text_filter">Filter</string>
     <string name="text_edit">Edit</string>
     <string name="text_createdAt">Created At</string>
+    <string name="text_youWillGet">you will get</string>
+    <string name="text_youWillGive">you will give</string>
 
     <!--  About -->
-    <string name="text_about_license_title"><![CDATA[Attributions & License]]></string>
-    <string name="text_about_license">Licensed Under Apache 2.0 License</string>
     <string name="text_about_visit_title">Visit</string>
-    <string name="text_about_visit_url"><u>https://github.com/Spikeysanju/Expenso</u></string>
     <string name="text_app_version">v%s (%d)</string>
     <string name="text_share_as_text">Share as Text</string>
     <string name="text_share_as_image">Share as Image</string>
@@ -37,7 +36,7 @@
     <string name="text_share">Share</string>
 
     <!-- share transaction -->
-    <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
+    <string name="share_message">Title: %s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s o</string>
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
     <string name="add_button">Add Transactor</string>
@@ -53,5 +52,6 @@
     <string name="email_login">Email</string>
     <string name="phone_login">Phone</string>
     <string name="search">Search</string>
+    <string name="text_no_transaction_yet">No transaction yet!</string>
 
 </resources>

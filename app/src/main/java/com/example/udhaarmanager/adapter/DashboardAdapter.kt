@@ -43,6 +43,8 @@ class DashboardAdapter(
         var udhaarGiven = 0.0
         var udhaarTaken = 0.0
         fun bind(itemTransact: ContactModel) {
+            binding.transactName.text = itemTransact.name
+            binding.contactImage.text = itemTransact.name!!.subSequence(0..0)
             allTransactions.forEach {
                 if (itemTransact.number == it.number) {
                     if (it.transactionType == "Udhaar_taken") {
@@ -52,12 +54,10 @@ class DashboardAdapter(
                     }
                     binding.transactLast.text = it.createdAtDateFormat
                 }
-                binding.transactName.text = itemTransact.name
-                binding.contactImage.text = itemTransact.name!!.subSequence(0..0)
                 binding.transactTotal.text = indianRupee(udhaarGiven - udhaarTaken)
-                if(udhaarGiven - udhaarTaken < 0.0){
+                if (udhaarGiven - udhaarTaken < 0.0) {
                     binding.transactTotal.setTextColor(Color.parseColor("#e50000"))
-                }else{
+                } else {
                     binding.transactTotal.setTextColor(Color.parseColor("#007300"))
                 }
 

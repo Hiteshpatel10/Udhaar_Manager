@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.AppCompat.DayNight.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dimen_4"
@@ -10,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_64"
         android:orientation="vertical">
 
         <include
@@ -30,14 +30,6 @@
             app:layout_constraintTop_toBottomOf="@id/title_recent_transaction" />
     </LinearLayout>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:navigationIcon="@drawable/ic_baseline_keyboard_backspace_24" />
-
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_transaction"
         android:layout_width="wrap_content"
@@ -45,8 +37,8 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/dimen_32"
         android:contentDescription="@string/add_button"
-        app:borderWidth="0dp"
         android:text="Transaction"
+        app:borderWidth="0dp"
         app:icon="@drawable/ic_baseline_add_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
