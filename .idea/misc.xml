@@ -12,6 +12,8 @@
         <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/fragment_person_transact.xml" value="0.1" />
         <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/recyclerview_layout.xml" value="0.1" />
         <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/transact_layout.xml" value="0.22" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/transaction_given_layout.xml" value="0.16197916666666667" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/transaction_taken_layout.xml" value="0.16197916666666667" />
       </map>
     </option>
   </component>

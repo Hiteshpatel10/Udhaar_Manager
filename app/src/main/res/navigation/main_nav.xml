@@ -24,7 +24,7 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/dashboardFragment" />
         <action
             android:id="@+id/action_dashboardFragment_to_bottomSheetFragment"
             app:destination="@id/bottomSheetFragment" />
@@ -46,7 +46,8 @@
         <action
             android:id="@+id/action_addFragment_to_personTransactFragment"
             app:destination="@id/personTransactFragment"
-            app:popUpTo="@id/personTransactFragment" />
+            app:popUpTo="@id/personTransactFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -65,8 +66,7 @@
         <action
             android:id="@+id/action_detailFragment_to_personTransactFragment"
             app:destination="@id/personTransactFragment"
-            app:popUpTo="@id/personTransactFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/personTransactFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPersonFragment"

@@ -77,7 +77,7 @@ class PersonTransactFragment : Fragment(), TransactionAdapter.ITransactionListen
                     binding.addTransaction.extend()
                 }
 
-                if (dy > (recyclerView.layoutManager?.itemCount?.minus(2)!!)) {
+                if ((dy > (recyclerView.layoutManager?.itemCount!!)) && (recyclerView.layoutManager?.itemCount!! > 4)) {
                     binding.addTransaction.hide()
                 } else {
                     binding.addTransaction.show()
