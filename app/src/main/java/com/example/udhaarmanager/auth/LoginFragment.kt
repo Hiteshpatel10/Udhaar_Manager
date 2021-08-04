@@ -25,7 +25,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding.loginButton.setOnClickListener {
+        binding.login.setOnClickListener {
             login()
         }
 
@@ -41,14 +41,14 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         when {
-            TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.email.text.toString().trim { it <= ' ' }) -> {
                 Toast.makeText(
                     requireContext(),
                     "enter email",
                     Toast.LENGTH_LONG
                 ).show()
             }
-            TextUtils.isEmpty(binding.passInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.password.text.toString().trim { it <= ' ' }) -> {
                 Toast.makeText(
                     requireContext(),
                     "enter password",
@@ -56,8 +56,8 @@ class LoginFragment : Fragment() {
                 ).show()
             }
             else -> {
-                val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
-                val pass: String = binding.passInput.text.toString().trim { it <= ' ' }
+                val email: String = binding.email.text.toString().trim { it <= ' ' }
+                val pass: String = binding.password.text.toString().trim { it <= ' ' }
 
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener {
@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
                                 startActivity(intent).also {
                                     activity?.finish()
                                 }
-                            }else{
+                            } else {
                                 findNavController().navigate(R.id.emailVerificationFragment)
                             }
                         }

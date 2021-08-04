@@ -53,5 +53,11 @@
     <string name="phone_login">Phone</string>
     <string name="search">Search</string>
     <string name="text_no_transaction_yet">No transaction yet!</string>
+    <string name="text_first_name">First Name</string>
+    <string name="text_last_name">Last Name</string>
+    <string name="text_password">Password</string>
+    <string name="text_confirm_password">Confirm Password</string>
+    <string name="text_register">Register</string>
+    <string name="text_login">Login</string>
 
 </resources>
