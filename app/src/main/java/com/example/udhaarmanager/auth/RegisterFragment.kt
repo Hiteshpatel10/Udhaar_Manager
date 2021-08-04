@@ -35,7 +35,7 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
-    private fun register(){
+    private fun register() {
         when {
             TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
                 Toast.makeText(
@@ -59,17 +59,21 @@ class RegisterFragment : Fragment() {
                     .addOnCompleteListener {
 
                         if (it.isSuccessful) {
-                            val firebaseUser: FirebaseUser = it.result!!.user!!
+                            val currentUser: FirebaseUser = it.result!!.user!!
 
                             Toast.makeText(
                                 requireContext(),
-                                "successful $firebaseUser",
+                                "successful $currentUser",
                                 Toast.LENGTH_LONG
                             ).show()
 
-                            val intent = Intent(requireContext(), MainActivity::class.java)
-                            startActivity(intent).also {
-                                activity?.finish()
+                            if (currentUser.isEmailVerified) {
+                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                startActivity(intent).also {
+                                    activity?.finish()
+                                }
+                            } else {
+                                findNavController().navigate(R.id.emailVerificationFragment)
                             }
                         }
                     }

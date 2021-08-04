@@ -63,17 +63,21 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener {
 
                         if (it.isSuccessful) {
-                            val firebaseUser: FirebaseUser = it.result!!.user!!
+                            val currentUser: FirebaseUser = it.result!!.user!!
 
                             Toast.makeText(
                                 requireContext(),
-                                "Welcome ${firebaseUser.email}",
+                                "Welcome ${currentUser.email}",
                                 Toast.LENGTH_LONG
                             ).show()
 
-                            val intent= Intent(requireContext(), MainActivity::class.java)
-                            startActivity(intent).also{
-                                activity?.finish()
+                            if (currentUser.isEmailVerified) {
+                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                startActivity(intent).also {
+                                    activity?.finish()
+                                }
+                            }else{
+                                findNavController().navigate(R.id.emailVerificationFragment)
                             }
                         }
                     }

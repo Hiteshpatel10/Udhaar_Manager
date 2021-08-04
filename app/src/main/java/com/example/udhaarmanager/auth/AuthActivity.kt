@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.example.udhaarmanager.R
 import com.example.udhaarmanager.databinding.ActivityAuthBinding
 import com.example.udhaarmanager.main.MainActivity
@@ -27,7 +28,7 @@ class AuthActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
 
-        if (currentUser != null) {
+        if ((currentUser != null) && (currentUser.isEmailVerified)) {
             val intent = Intent(this@AuthActivity, MainActivity::class.java)
             startActivity(intent).also {
                 finish()
