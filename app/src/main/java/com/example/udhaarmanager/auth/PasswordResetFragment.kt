@@ -23,9 +23,9 @@ class PasswordResetFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPasswordResetBinding.inflate(layoutInflater, container, false)
 
-        binding.resetButton.setOnClickListener {
-            if (binding.emailInput.text != null) {
-                resetPassword(binding.emailInput.text.toString())
+        binding.reset.setOnClickListener {
+            if (binding.email.text != null) {
+                resetPassword(binding.email.text.toString())
             }
         }
         return binding.root

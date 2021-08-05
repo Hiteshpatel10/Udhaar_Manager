@@ -25,7 +25,7 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding.loginButton.setOnClickListener {
+        binding.login.setOnClickListener {
             login()
         }
 
@@ -41,14 +41,14 @@ class LoginFragment : Fragment() {
 
     private fun login() {
         when {
-            TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.email.text.toString().trim { it <= ' ' }) -> {
                 Toast.makeText(
                     requireContext(),
                     "enter email",
                     Toast.LENGTH_LONG
                 ).show()
             }
-            TextUtils.isEmpty(binding.passInput.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.password.text.toString().trim { it <= ' ' }) -> {
                 Toast.makeText(
                     requireContext(),
                     "enter password",
@@ -56,24 +56,28 @@ class LoginFragment : Fragment() {
                 ).show()
             }
             else -> {
-                val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
-                val pass: String = binding.passInput.text.toString().trim { it <= ' ' }
+                val email: String = binding.email.text.toString().trim { it <= ' ' }
+                val pass: String = binding.password.text.toString().trim { it <= ' ' }
 
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener {
 
                         if (it.isSuccessful) {
-                            val firebaseUser: FirebaseUser = it.result!!.user!!
+                            val currentUser: FirebaseUser = it.result!!.user!!
 
                             Toast.makeText(
                                 requireContext(),
-                                "Welcome ${firebaseUser.email}",
+                                "Welcome ${currentUser.email}",
                                 Toast.LENGTH_LONG
                             ).show()
 
-                            val intent= Intent(requireContext(), MainActivity::class.java)
-                            startActivity(intent).also{
-                                activity?.finish()
+                            if (currentUser.isEmailVerified) {
+                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                startActivity(intent).also {
+                                    activity?.finish()
+                                }
+                            } else {
+                                findNavController().navigate(R.id.emailVerificationFragment)
                             }
                         }
                     }

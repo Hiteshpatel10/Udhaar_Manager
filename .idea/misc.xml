@@ -14,6 +14,11 @@
         <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/transact_layout.xml" value="0.22" />
         <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/transaction_given_layout.xml" value="0.16197916666666667" />
         <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/UdhaarManager/app/src/main/res/layout/transaction_taken_layout.xml" value="0.16197916666666667" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/Udhaar_Manager/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.13204633204633204" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/Udhaar_Manager/app/src/main/res/layout/fragment_email_verification.xml" value="0.16197916666666667" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/Udhaar_Manager/app/src/main/res/layout/fragment_login.xml" value="0.12" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/Udhaar_Manager/app/src/main/res/layout/fragment_password_reset.xml" value="0.16197916666666667" />
+        <entry key="..\:/Users/Hitesh Patel/AndroidStudioProjects/Udhaar_Manager/app/src/main/res/layout/fragment_register.xml" value="0.16197916666666667" />
       </map>
     </option>
   </component>

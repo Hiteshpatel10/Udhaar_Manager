@@ -2,7 +2,6 @@ package com.example.udhaarmanager.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser
 class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,62 +25,63 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
 
-        binding.registerButton.setOnClickListener {
-            register()
+        binding.register.setOnClickListener {
+            validateData()
         }
 
-        binding.login.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-        }
         return binding.root
     }
 
-    private fun register(){
+    private fun validateData() {
+        val email = binding.email.text.toString()
+        val password = binding.password.text.toString()
+        val confirmPassword = binding.confirmPassword.text.toString()
+
         when {
-            TextUtils.isEmpty(binding.emailInput.text.toString().trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
-                    "enter email",
-                    Toast.LENGTH_LONG
-                ).show()
+            email.isEmpty() -> {
+                binding.email.error = "Email Can't Be Empty"
             }
-            TextUtils.isEmpty(binding.passInput.text.toString().trim { it <= ' ' }) -> {
-                Toast.makeText(
-                    requireContext(),
-                    "enter password",
-                    Toast.LENGTH_LONG
-                ).show()
+
+            password.isEmpty() -> {
+                binding.password.error = "Password Can't Be Empty"
             }
-            else -> {
-                val email: String = binding.emailInput.text.toString().trim { it <= ' ' }
-                val pass: String = binding.passInput.text.toString().trim { it <= ' ' }
+            confirmPassword.isEmpty() -> {
+                binding.confirmPassword.error = "Password Can't Be Empty"
+            }
 
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener {
-
-                        if (it.isSuccessful) {
-                            val firebaseUser: FirebaseUser = it.result!!.user!!
-
-                            Toast.makeText(
-                                requireContext(),
-                                "successful $firebaseUser",
-                                Toast.LENGTH_LONG
-                            ).show()
-
-                            val intent = Intent(requireContext(), MainActivity::class.java)
-                            startActivity(intent).also {
-                                activity?.finish()
-                            }
-                        }
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(
-                            requireContext(),
-                            "${it.message}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+            password.isNotEmpty() -> {
+                if (password != confirmPassword)
+                    binding.password.error = "Password Don't match"
+                else
+                    register(email, password)
             }
         }
     }
+
+    private fun register(email: String, password: String) {
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+
+                if (it.isSuccessful) {
+                    val currentUser: FirebaseUser = it.result!!.user!!
+                    if (currentUser.isEmailVerified) {
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent).also {
+                            activity?.finish()
+                        }
+                    } else {
+                        findNavController().navigate(R.id.emailVerificationFragment)
+                    }
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    requireContext(),
+                    "${it.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+    }
+
 }
