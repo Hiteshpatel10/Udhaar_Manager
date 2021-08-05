@@ -10,7 +10,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="220dp"
         android:background="@drawable/blue_bg">
 
         <TextView
@@ -59,7 +59,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,22 +77,14 @@
             android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <RelativeLayout
+    <Button
+        android:id="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/dimen_8"
-        android:layout_marginEnd="@dimen/dimen_8"
-        android:layout_marginBottom="@dimen/dimen_16">
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/text_register" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_8"
+        android:text="@string/text_register" />
 </LinearLayout>
